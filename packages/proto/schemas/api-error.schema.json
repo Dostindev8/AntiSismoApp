@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://antisismo.app/schemas/api-error.schema.json",
+  "title": "ApiError",
+  "description": "Formato estándar de error (§7.5). Nunca incluye stack traces ni PII.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error"],
+  "properties": {
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "degraded"],
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,40}$" },
+        "message": { "type": "string", "maxLength": 300 },
+        "degraded": { "type": "boolean" },
+        "retry_after_ms": { "type": "integer", "minimum": 0, "maximum": 3600000 }
+      }
+    }
+  }
+}

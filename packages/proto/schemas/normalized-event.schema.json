@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://antisismo.app/schemas/normalized-event.schema.json",
+  "title": "NormalizedEvent",
+  "description": "Evento normalizado (wire format). Tiempos en epoch MILISEGUNDOS UTC. Coordenadas WGS84. Reglas cruzadas (futuro > 5 min) se validan en código.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "source_ids", "type", "magnitude", "mag_type", "time_utc_ms", "received_at_ms",
+    "lon", "lat", "depth_km", "place", "tsunami", "solution_status", "revision_seq"
+  ],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "source_ids": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]{1,15}$" },
+      "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[A-Za-z0-9_.:-]+$" }
+    },
+    "type": { "enum": ["EARTHQUAKE", "TSUNAMI", "VOLCANO", "FLOOD", "LANDSLIDE", "WILDFIRE", "CIVIL"] },
+    "magnitude": { "type": "number", "minimum": -2, "maximum": 10 },
+    "mag_type": { "type": "string", "pattern": "^[A-Za-z_]{1,8}$" },
+    "time_utc_ms": { "type": "integer", "minimum": 946684800000, "maximum": 32503680000000 },
+    "received_at_ms": { "type": "integer", "minimum": 946684800000, "maximum": 32503680000000 },
+    "lon": { "type": "number", "minimum": -180, "maximum": 180 },
+    "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+    "depth_km": { "type": "number", "minimum": -100, "maximum": 1000 },
+    "place": { "type": "string", "maxLength": 200, "pattern": "^[^\\u0000-\\u001F\\u007F<>]*$" },
+    "tsunami": { "type": "boolean" },
+    "solution_status": { "enum": ["automatic", "reviewed"] },
+    "revision_seq": { "type": "integer", "minimum": 0, "maximum": 10000 }
+  }
+}

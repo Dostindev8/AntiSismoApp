@@ -1,0 +1,756 @@
+{
+  "$comment": "GENERADO por scripts/gen-alert-vectors.ts — no editar a mano. Claves efímeras de prueba (kid k-test-*); nunca en producción.",
+  "canonical": {
+    "event_id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+    "revision_seq": 0,
+    "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+    "string": "v1\n89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da\n3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01\n0\n1790627527000\n1790627529000\n1790627829000\nCRITICAL\nDROP_COVER_HOLD_ON"
+  },
+  "public_keys": {
+    "k-test-active": "sae55dndqhaSYCKRcLatUVHuuf19VR8rY2sCkucX4Fs",
+    "k-test-next": "3MhD_Gc4NjJtPMDudUpH1mcGWeAH9_FlF1q2X0nwmPU"
+  },
+  "cases": [
+    {
+      "name": "valid-critical",
+      "now_ms": 1790627530000,
+      "expect": "ALARM",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA"
+      }
+    },
+    {
+      "name": "valid-critical-at-exp-boundary",
+      "now_ms": 1790627829000,
+      "expect": "ALARM",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA"
+      }
+    },
+    {
+      "name": "expired-becomes-informative (QA-14)",
+      "now_ms": 1790627829001,
+      "expect": "INFORMATIVE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA"
+      }
+    },
+    {
+      "name": "informative-level",
+      "now_ms": 1790627530000,
+      "expect": "INFORMATIVE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "INFORMATIVE",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "6aRRy_GFq7Zy6CCeIxFyoa6YxxpmA-roQtPILERHgPP58GMS6GJ2eA5NE-hltpQ2gkj4ILQG2pK5cG9oKfEhCw"
+      }
+    },
+    {
+      "name": "drill-never-critical (QA-23)",
+      "now_ms": 1790627530000,
+      "expect": "DRILL",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "DRILL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "MYoFWdASU50PJWIVThfAZDayqq9yqb5r34r2nSfglKhzJ5DATT7UbOPtbZ2aE-ugnocdH5LRCvzsRpBnzTrIAQ"
+      }
+    },
+    {
+      "name": "drill-tampered-to-critical",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "MYoFWdASU50PJWIVThfAZDayqq9yqb5r34r2nSfglKhzJ5DATT7UbOPtbZ2aE-ugnocdH5LRCvzsRpBnzTrIAQ"
+      }
+    },
+    {
+      "name": "informative-tampered-to-critical",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "6aRRy_GFq7Zy6CCeIxFyoa6YxxpmA-roQtPILERHgPP58GMS6GJ2eA5NE-hltpQ2gkj4ILQG2pK5cG9oKfEhCw"
+      }
+    },
+    {
+      "name": "instruction-tampered",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "FOLLOW_AUTHORITIES",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA"
+      }
+    },
+    {
+      "name": "exp-extended-replay (QA-14)",
+      "now_ms": 1790627889000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627949000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA"
+      }
+    },
+    {
+      "name": "rogue-key-invalid-signature (QA-13)",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "rDAXLh7f7VLv8O1LgPIEEXuqtQ1UgbTOM7647bCh-vnXYNzw9PDTp5Y8eMKF46mMiZpN9tA74YisiTFPHu82AQ"
+      }
+    },
+    {
+      "name": "unknown-kid",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-unknown",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA"
+      }
+    },
+    {
+      "name": "next-key-rotation",
+      "now_ms": 1790627530000,
+      "expect": "ALARM",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-next",
+        "sig": "tq9BUnK-PnXzCP1aXe-IsFr8Z5QmFTnxTTOC2AeFYsjU7RdlPooPbXKllfcXMslFwdWQBEYQ2qH5YzyxYwhWBw"
+      }
+    },
+    {
+      "name": "alert-id-mismatch-even-if-signed",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "0000000000000000000000000000000000000000000000000000000000000000",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YAF6u7mqrMc42su92B8227geHvo2en6J3eWyrpo_zpLFVr7uHkDYQvTzdWe-ImhnM4Ijq1IIBrRbHEfXIS3MBA"
+      }
+    },
+    {
+      "name": "validity-window-too-long",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790628189000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "sLYoS9v_Hd0KvUronrn4piXwMEXInascKKn6pBY1lZ0OMyCEQkU-cAIjl3NMAlGt4CPQOcbup2RTeKJRmWuQAg"
+      }
+    },
+    {
+      "name": "validity-window-inverted",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627528999,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "hmA8G9ldTzxsFDIMCvcj9_V-aIRvWkBmBjqGYiYe8VuPtTDUTfsJ3mSmn_nFtfhtuJ_mY00SOnBpH--V4x_DDw"
+      }
+    },
+    {
+      "name": "revision-2-valid",
+      "now_ms": 1790627530000,
+      "expect": "ALARM",
+      "alert": {
+        "v": 1,
+        "alert_id": "9f8120b91dd3c20059edee35f4b421432e133f417b43d4b0fa8a83772a4e0b7f",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 2,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "jZ7YFJQwBuHDi3UWa91dFzsBv4ZFZFYL9d4wM8KUSHWIt41J6HrITb-rXyg1HLCo9zjaYzmcGTkW1C78GNtCAw"
+      }
+    },
+    {
+      "name": "malformed-missing-sig",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active"
+      }
+    },
+    {
+      "name": "malformed-html-place",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "<img src=x onerror=alert(1)>",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA"
+      }
+    },
+    {
+      "name": "malformed-extra-field",
+      "now_ms": 1790627530000,
+      "expect": "RECONCILE",
+      "alert": {
+        "v": 1,
+        "alert_id": "89bdcc64fb886832f5deca14bb6b94055613cfc7e01c65e6c71fc4ff1c1425da",
+        "level": "CRITICAL",
+        "event": {
+          "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+          "type": "EARTHQUAKE",
+          "magnitude": 6.8,
+          "mag_type": "Mw",
+          "time_utc_ms": 1790627527000,
+          "place": "Frente a la costa norte de República Dominicana",
+          "lon": -69.9,
+          "lat": 19.7,
+          "depth_km": 35,
+          "mmi_estimated_regional": 6,
+          "mmi_range": [
+            5,
+            7
+          ],
+          "tsunami": false,
+          "solution_status": "automatic",
+          "revision_seq": 0,
+          "tea_regional_seconds": 12
+        },
+        "instruction": "DROP_COVER_HOLD_ON",
+        "voice": {
+          "speak_name": true
+        },
+        "iat_ms": 1790627529000,
+        "exp_ms": 1790627829000,
+        "server_time_ms": 1790627529100,
+        "kid": "k-test-active",
+        "sig": "YBfsiL5J2zkOMgfZbVlfohg03N_k4-0t9Jk7jlNnmlNrHB29qitAY4zMyKqDN9DiL4H6em00lKrGc-ngc2p6CA",
+        "debug": true
+      }
+    }
+  ]
+}

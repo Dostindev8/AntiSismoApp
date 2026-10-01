@@ -1,0 +1,191 @@
+{
+ "source": "openlocationcode (PyPI, Google official) encode(lat, lon, 10)",
+ "vectors": [
+  {
+   "lat": 18.4861,
+   "lon": -69.9312,
+   "label": "Santo Domingo",
+   "code": "77CGF3P9+CG"
+  },
+  {
+   "lat": 19.4517,
+   "lon": -70.697,
+   "label": "Santiago DR",
+   "code": "77FFF823+M6"
+  },
+  {
+   "lat": 19.4326,
+   "lon": -99.1332,
+   "label": "CDMX",
+   "code": "76F2CVM8+2P"
+  },
+  {
+   "lat": 47.36559,
+   "lon": 8.524997,
+   "label": "Zurich",
+   "code": "8FVC9G8F+6X"
+  },
+  {
+   "lat": -33.8688,
+   "lon": 151.2093,
+   "label": "Sydney",
+   "code": "4RRH46J5+FP"
+  },
+  {
+   "lat": 0,
+   "lon": 0,
+   "label": "null island",
+   "code": "6FG22222+22"
+  },
+  {
+   "lat": 90,
+   "lon": 0,
+   "label": "north pole",
+   "code": "CFX2X2X2+X2"
+  },
+  {
+   "lat": -90,
+   "lon": -180,
+   "label": "south pole antimeridian",
+   "code": "22222222+22"
+  },
+  {
+   "lat": 10,
+   "lon": 180,
+   "label": "lon 180 wraps",
+   "code": "72222222+22"
+  },
+  {
+   "lat": 10,
+   "lon": -181,
+   "label": "lon -181 wraps",
+   "code": "7V2X2222+22"
+  },
+  {
+   "lat": 51.3708675,
+   "lon": -1.217765625,
+   "label": "spec example",
+   "code": "9C3W9QCJ+8V"
+  },
+  {
+   "lat": -68.482245,
+   "lon": 0.905169,
+   "label": "random",
+   "code": "3F32GW94+43"
+  },
+  {
+   "lat": 2.125724,
+   "lon": 129.528211,
+   "label": "random",
+   "code": "6QJF4GGH+77"
+  },
+  {
+   "lat": -71.445894,
+   "lon": -99.562217,
+   "label": "random",
+   "code": "26W2HC3Q+J4"
+  },
+  {
+   "lat": 18.165311,
+   "lon": 20.349936,
+   "label": "random",
+   "code": "7GC2588X+4X"
+  },
+  {
+   "lat": 50.950534,
+   "lon": 17.202561,
+   "label": "random",
+   "code": "9F2VX623+62"
+  },
+  {
+   "lat": 41.450911,
+   "lon": 96.467893,
+   "label": "random",
+   "code": "8MHRFF29+95"
+  },
+  {
+   "lat": 45.134467,
+   "lon": 31.130201,
+   "label": "random",
+   "code": "8GQH44MJ+Q3"
+  },
+  {
+   "lat": -46.759853,
+   "lon": 41.0907,
+   "label": "random",
+   "code": "4H5363RR+37"
+  },
+  {
+   "lat": -69.989569,
+   "lon": 113.970735,
+   "label": "random",
+   "code": "3P2M2X6C+57"
+  },
+  {
+   "lat": -9.052061,
+   "lon": 113.251615,
+   "label": "random",
+   "code": "6P2MW7X2+5J"
+  },
+  {
+   "lat": 33.295017,
+   "lon": 64.544142,
+   "label": "random",
+   "code": "8J567GWV+2M"
+  },
+  {
+   "lat": -52.101606,
+   "lon": -89.405585,
+   "label": "random",
+   "code": "36VGVHXV+9Q"
+  },
+  {
+   "lat": 86.28824,
+   "lon": 154.468364,
+   "label": "random",
+   "code": "CRRP7FQ9+78"
+  },
+  {
+   "lat": 54.863435,
+   "lon": 179.776273,
+   "label": "random",
+   "code": "9V6XVQ7G+9G"
+  },
+  {
+   "lat": 2.443041,
+   "lon": -152.4401,
+   "label": "random",
+   "code": "63J9CHV5+6X"
+  },
+  {
+   "lat": -28.697056,
+   "lon": 20.670703,
+   "label": "random",
+   "code": "5G328M3C+57"
+  },
+  {
+   "lat": -37.376487,
+   "lon": -15.310282,
+   "label": "random",
+   "code": "4CJ6JMFQ+CV"
+  },
+  {
+   "lat": 67.690171,
+   "lon": 73.3904,
+   "label": "random",
+   "code": "9JVMM9RR+35"
+  },
+  {
+   "lat": 13.92072,
+   "lon": -170.998799,
+   "label": "random",
+   "code": "725FW2C2+7F"
+  },
+  {
+   "lat": 37.913048,
+   "lon": -49.097505,
+   "label": "random",
+   "code": "889GWW72+6X"
+  }
+ ]
+}

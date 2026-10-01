@@ -1,0 +1,119 @@
+{
+  "$comment": "Fixtures compartidos TS/Go/Dart. 'valid' debe pasar schema + validación semántica; 'invalid' debe ser rechazado por la validación completa en los 3 lenguajes. Tiempos: 1790627527000 = 2026-09-28T20:32:07Z (lunes) — §3#1.",
+  "valid": [
+    {
+      "name": "do-offshore-automatic",
+      "event": {
+        "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+        "source_ids": { "usgs": "us7000abcd", "emsc": "20260928_0000123" },
+        "type": "EARTHQUAKE",
+        "magnitude": 6.8,
+        "mag_type": "Mw",
+        "time_utc_ms": 1790627527000,
+        "received_at_ms": 1790627529500,
+        "lon": -69.9,
+        "lat": 19.7,
+        "depth_km": 35,
+        "place": "Frente a la costa norte de República Dominicana",
+        "tsunami": false,
+        "solution_status": "automatic",
+        "revision_seq": 0
+      }
+    },
+    {
+      "name": "do-reviewed-revision-2",
+      "event": {
+        "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01",
+        "source_ids": { "usgs": "us7000abcd" },
+        "type": "EARTHQUAKE",
+        "magnitude": 6.2,
+        "mag_type": "Mww",
+        "time_utc_ms": 1790627527000,
+        "received_at_ms": 1790628100000,
+        "lon": -69.93,
+        "lat": 19.72,
+        "depth_km": 33.5,
+        "place": "22 km al N de Puerto Plata, República Dominicana",
+        "tsunami": false,
+        "solution_status": "reviewed",
+        "revision_seq": 2
+      }
+    },
+    {
+      "name": "mx-guerrero-fixture",
+      "event": {
+        "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+        "source_ids": { "emsc": "20260928_0000999" },
+        "type": "EARTHQUAKE",
+        "magnitude": 5.9,
+        "mag_type": "mb",
+        "time_utc_ms": 1790627527000,
+        "received_at_ms": 1790627530000,
+        "lon": -99.1,
+        "lat": 16.9,
+        "depth_km": 20,
+        "place": "Guerrero, México",
+        "tsunami": false,
+        "solution_status": "automatic",
+        "revision_seq": 0
+      }
+    },
+    {
+      "name": "edge-antimeridian-negative-depth-tsunami",
+      "event": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "source_ids": { "usgs": "us0000edge" },
+        "type": "TSUNAMI",
+        "magnitude": -2,
+        "mag_type": "ml",
+        "time_utc_ms": 946684800000,
+        "received_at_ms": 946684800000,
+        "lon": -180,
+        "lat": 90,
+        "depth_km": -100,
+        "place": "",
+        "tsunami": true,
+        "solution_status": "automatic",
+        "revision_seq": 0
+      }
+    },
+    {
+      "name": "edge-future-within-5-min",
+      "event": {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "source_ids": { "usgs": "us0000fut" },
+        "type": "EARTHQUAKE",
+        "magnitude": 10,
+        "mag_type": "Mw",
+        "time_utc_ms": 1790627829500,
+        "received_at_ms": 1790627529500,
+        "lon": 180,
+        "lat": -90,
+        "depth_km": 1000,
+        "place": "Borde: 5 minutos exactos en el futuro",
+        "tsunami": false,
+        "solution_status": "automatic",
+        "revision_seq": 10000
+      }
+    }
+  ],
+  "invalid": [
+    { "name": "lonlat-swapped-detectable", "reason": "lat fuera de rango (lon/lat invertidos) — QA-17", "event": { "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d", "source_ids": { "emsc": "x1" }, "type": "EARTHQUAKE", "magnitude": 5.9, "mag_type": "mb", "time_utc_ms": 1790627527000, "received_at_ms": 1790627530000, "lon": 16.9, "lat": -99.1, "depth_km": 20, "place": "Guerrero", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "epoch-in-seconds", "reason": "time en segundos en vez de ms — QA-17", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "future-over-5-min", "reason": "más de 5 min en el futuro", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627829501, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "magnitude-out-of-range", "reason": "magnitud > 10", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 11, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "depth-out-of-range", "reason": "profundidad > 1000 km", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 1200, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "lon-out-of-range", "reason": "lon > 180", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": 180.0001, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "place-control-char", "reason": "carácter de control en place", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD\u0007", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "place-html", "reason": "HTML en place (debe sanitizarse antes en ingesta) — QA-16", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "<script>alert(1)</script>", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "place-too-long", "reason": "place > 200 caracteres", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "missing-lat", "reason": "campo requerido ausente — QA-21", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "bad-uuid", "reason": "id no es UUID", "event": { "id": "not-a-uuid", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "unknown-field", "reason": "propiedad extra no permitida", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0, "tz": -240 } },
+    { "name": "unknown-type", "reason": "tipo de amenaza desconocido", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "METEOR", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "time-not-integer", "reason": "time_utc_ms fraccional", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000.5, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "negative-revision", "reason": "revision_seq negativo", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": -1 } },
+    { "name": "empty-source-ids", "reason": "sin fuentes", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": {}, "type": "EARTHQUAKE", "magnitude": 6.8, "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } },
+    { "name": "string-magnitude", "reason": "tipo incorrecto (string)", "event": { "id": "3f6c2a1e-8b4d-4c1a-9e2f-7a5b6c8d9e01", "source_ids": { "usgs": "x" }, "type": "EARTHQUAKE", "magnitude": "6.8", "mag_type": "Mw", "time_utc_ms": 1790627527000, "received_at_ms": 1790627529500, "lon": -69.9, "lat": 19.7, "depth_km": 35, "place": "RD", "tsunami": false, "solution_status": "automatic", "revision_seq": 0 } }
+  ]
+}

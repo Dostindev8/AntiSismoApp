@@ -1,0 +1,31 @@
+# Región 2 — habilitable por config (ANTISISMO_REGION=MX). VALORES INICIALES — calibrar con sismólogos.
+region: MX
+name: México
+timezone: America/Mexico_City
+locale: es-MX
+emergencyNumber: "911"
+bbox: { minLat: 14.0, maxLat: 33.0, minLon: -118.5, maxLon: -86.0 }
+thresholds:
+  critical:    { minMagnitude: 5.5, maxDistanceKm: 300, minExpectedMMI: 5.0 }
+  informative: { minMagnitude: 4.5, maxDistanceKm: 500, minExpectedMMI: 3.0 }
+tsunami:
+  forceCriticalOnFlag: true
+sources:
+  usgs:
+    enabled: true
+    host: earthquake.usgs.gov
+    pollSeconds: 30
+    feeds: [all_hour, significant_week]
+  emsc:
+    enabled: true
+    host: www.seismicportal.eu
+    websocket: true
+    backoff: { baseMs: 500, maxMs: 30000, jitter: true }
+  sasmex:
+    enabled: false
+    note: "SASMEX (CIRES). Requiere acuerdo de difusión oficial [BLK-04]"
+  ssn_mx:
+    enabled: false
+    note: "Servicio Sismológico Nacional. Verificar documentación oficial [BLK-04]"
+dedup: { windowMs: 16000, radiusKm: 100, maxDeltaMag: 1.5 }
+ops: { primarySource: usgs, sourceDownAlarmSeconds: 60 }

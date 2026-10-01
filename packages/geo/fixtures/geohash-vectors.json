@@ -1,0 +1,18 @@
+{
+  "$comment": "Vectores compartidos Go/Dart. Los dos primeros son ejemplos públicos de referencia (Wikipedia 'Geohash' y geohash.org); el resto fija el comportamiento en la región inicial. Si cambias uno, corre node scripts/verify.mjs.",
+  "encode": [
+    { "lat": 57.64911, "lon": 10.40744, "precision": 11, "hash": "u4pruydqqvj" },
+    { "lat": 42.6, "lon": -5.6, "precision": 5, "hash": "ezs42" },
+    { "lat": 18.4861, "lon": -69.9312, "precision": 4, "hash": "d7q3" },
+    { "lat": 19.4517, "lon": -70.697, "precision": 4, "hash": "d7mw" },
+    { "lat": 19.4326, "lon": -99.1332, "precision": 4, "hash": "9g3w" },
+    { "lat": -90, "lon": -180, "precision": 4, "hash": "0000" },
+    { "lat": 90, "lon": 180, "precision": 4, "hash": "zzzz" }
+  ],
+  "invalid": [
+    { "lat": 91, "lon": 0, "precision": 4 },
+    { "lat": 0, "lon": -181, "precision": 4 },
+    { "lat": 0, "lon": 0, "precision": 0 },
+    { "lat": 0, "lon": 0, "precision": 13 }
+  ]
+}

@@ -1,0 +1,16 @@
+---
+description: Reglas permanentes de AntiSismo (misión crítica)
+alwaysApply: true
+---
+1. Lee docs/EXECUTION_PROMPT.md y PROGRESS.md al iniciar cada sesión.
+2. Camino crítico (ingesta→decisión→push→alerta) NO depende de Postgres ni de servicios no esenciales; solo Redis + cola en memoria, con fallback a memoria local.
+3. Tiempos: epoch ms UTC en backend; IANA tz solo en presentación. Coordenadas GeoJSON [lon,lat,depth]; validar rangos siempre.
+4. Toda alerta es idempotente (alert_id determinista = evento+revisión).
+5. Fail-safe: ningún fallo silencia una alerta legítima; ningún fallo de verificación deja pasar una falsa. Degradar y reportar.
+6. Nunca hardcodear umbrales, hosts, claves ni textos: config por región / .env / i18n.
+7. Toda integración externa: allowlist de host, timeout, retry con backoff+jitter, circuit breaker.
+8. Toda feature = pruebas unit + integración + criterio de aceptación + estados (loading/error/empty/offline/degraded).
+9. Seguridad por defecto (§8). Accesibilidad WCAG 2.2 AA y responsive 320px→tablet→desktop desde el primer commit.
+10. Extend-never-overwrite: no rompas lo que ya pasa el gate.
+11. Cero warnings en build/lint/analyze. Cero TODOs vagos: todo TODO lleva ID en BLOCKERS.md.
+12. Fuente única de tokens de diseño y contratos: packages/config/tokens.json y packages/proto/fixtures. Si cambias uno, corre `node scripts/verify.mjs`.

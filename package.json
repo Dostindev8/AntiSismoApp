@@ -1,0 +1,18 @@
+{
+  "name": "antisismo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AntiSismo — Prevención · Alerta · Vida. Monorepo del sistema de alerta temprana.",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "verify": "node scripts/verify.mjs",
+    "gen:tokens": "node scripts/gen-tokens.mjs",
+    "gen:fixtures": "pnpm --filter @antisismo/proto gen:fixtures",
+    "brand": "python scripts/brand/generate_brand_assets.py",
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck"
+  }
+}

@@ -1,0 +1,9 @@
+go 1.26.0
+
+use (
+	./packages/geo/go
+	./packages/proto/go
+	./services/decision
+	./services/delivery
+	./services/ingestion
+)

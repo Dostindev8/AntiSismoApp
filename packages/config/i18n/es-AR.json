@@ -1,0 +1,7 @@
+{
+  "instruction.DROP_COVER_HOLD_ON": "Agachate, cubrite y sujetate",
+  "voice.drill": "Esto es un simulacro. {name}, practicá: agachate, cubrite y sujetate.",
+  "voice.drillAnon": "Esto es un simulacro. Practicá: agachate, cubrite y sujetate.",
+  "sos.hold": "Mantené presionado 2 segundos",
+  "state.error": "Algo salió mal. Intentá de nuevo."
+}

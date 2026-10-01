@@ -1,0 +1,16 @@
+{
+  "region": "MX",
+  "version": 1,
+  "contacts": [
+    {
+      "region": "MX",
+      "service": "general",
+      "number": "911",
+      "verified": true,
+      "source_url": "https://www.c5.cdmx.gob.mx/",
+      "source_name": "C5 · Centro de Comando, Control, Cómputo, Comunicaciones y Contacto Ciudadano (Gobierno de la Ciudad de México) — «Emergencias 9-1-1»",
+      "verified_at": "2026-10-01T03:55:00Z",
+      "version": 1
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "region": "DO",
+  "version": 1,
+  "contacts": [
+    {
+      "region": "DO",
+      "service": "general",
+      "number": "911",
+      "verified": true,
+      "source_url": "https://911.gob.do/",
+      "source_name": "Sistema Nacional de Atención a Emergencias y Seguridad 9-1-1 (Gobierno de la República Dominicana)",
+      "verified_at": "2026-10-01T03:55:00Z",
+      "version": 1
+    }
+  ]
+}

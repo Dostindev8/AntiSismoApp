@@ -1,0 +1,35 @@
+# VALORES INICIALES — calibrar con sismólogos. Nunca hardcodear en código.
+region: DO
+name: República Dominicana
+timezone: America/Santo_Domingo
+locale: es-DO
+emergencyNumber: "911"
+bbox: { minLat: 16.0, maxLat: 22.0, minLon: -76.0, maxLon: -65.0 }
+thresholds:
+  critical:    { minMagnitude: 5.0, maxDistanceKm: 250, minExpectedMMI: 5.0 }
+  informative: { minMagnitude: 4.0, maxDistanceKm: 400, minExpectedMMI: 3.0 }
+tsunami:
+  forceCriticalOnFlag: true
+sources:
+  usgs:
+    enabled: true
+    host: earthquake.usgs.gov
+    pollSeconds: 30
+    feeds: [all_hour, significant_week]
+  emsc:
+    enabled: true
+    host: www.seismicportal.eu
+    websocket: true
+    backoff: { baseMs: 500, maxMs: 30000, jitter: true }
+  cns_do:
+    enabled: false
+    note: "Centro Nacional de Sismología (UASD). Verificar documentación oficial antes de habilitar [BLK-04]"
+  coe_do:
+    enabled: false
+    note: "COE / Defensa Civil. Requiere acuerdo y canal oficial [BLK-04]"
+  ptwc:
+    enabled: false
+    note: "CAP tsunami (PTWC/NTWC). Verificar formato y términos [BLK-05]"
+dedup: { windowMs: 16000, radiusKm: 100, maxDeltaMag: 1.5 }
+# USGS primario, EMSC respaldo. Fuente primaria sin datos > N s ⇒ alarma operativa (nunca silencia el pipeline).
+ops: { primarySource: usgs, sourceDownAlarmSeconds: 60 }
