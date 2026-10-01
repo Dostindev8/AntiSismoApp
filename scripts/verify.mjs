@@ -107,15 +107,26 @@ step("assets de marca y fuentes OFL", () => {
     "apps/mobile/assets/brand/app_icon_mono.png", "apps/mobile/assets/brand/logo-fullcolor.png", "apps/mobile/assets/brand/splash.png",
     "apps/mobile/assets/fonts/Inter-Regular.ttf", "apps/mobile/assets/fonts/Poppins-ExtraBold.ttf",
     "apps/mobile/assets/licenses/Inter-OFL.txt", "apps/mobile/assets/licenses/Poppins-OFL.txt",
+    "apps/web/public/brand/logo-fullcolor.webp", "apps/web/public/brand/symbol.webp", "apps/web/public/brand/icon-192.png",
+    "apps/web/public/brand/icon-512.png", "apps/web/public/brand/icon-maskable-512.png", "apps/web/public/brand/favicon.ico",
   ];
   const missing = need.filter((p) => !existsSync(join(root, p)));
   if (missing.length) throw new Error(`faltan: ${missing.join(", ")}`);
   return `${need.length} archivos`;
 });
 
-// ── 4. TypeScript (config + proto) ──────────────────────────────────────────
+// ── 4. TypeScript (config + proto + web + api) ──────────────────────────────
 run("pnpm typecheck (strict)", "pnpm", ["-r", "--if-present", "typecheck"]);
+run("pnpm lint (0 warnings)", "pnpm", ["-r", "--if-present", "lint"]);
 run("pnpm test (vitest)", "pnpm", ["-r", "--if-present", "test"]);
+run("web build (next)", "pnpm", ["--filter", "@antisismo/web", "build"]);
+run("pnpm audit (alto/crítico)", "pnpm", ["audit", "--audit-level", "high"]);
+
+const GITLEAKS = findTool("gitleaks", "GITLEAKS_BIN", []);
+if (GITLEAKS) {
+  run("gitleaks (árbol de trabajo)", GITLEAKS, ["dir", ".", "--no-banner", "--redact"]);
+  run("gitleaks (historial git)", GITLEAKS, ["git", ".", "--no-banner", "--redact"]);
+} else skipOrFail("gitleaks", "gitleaks");
 
 // ── 5. Go (camino crítico) ──────────────────────────────────────────────────
 const goModules = ["packages/proto/go", "packages/geo/go", "services/ingestion", "services/decision", "services/delivery"];

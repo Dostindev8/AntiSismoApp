@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 10
+    groups:
+      web:
+        patterns: ["next", "react", "react-dom", "next-intl", "@types/react*"]
+  - package-ecosystem: gomod
+    directories: ["/packages/proto/go", "/packages/geo/go", "/services/ingestion", "/services/decision", "/services/delivery"]
+    schedule: { interval: weekly }
+  - package-ecosystem: pub
+    directory: /apps/mobile
+    schedule: { interval: weekly }
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
