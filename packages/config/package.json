@@ -7,7 +7,9 @@
     "./region": "./src/region.ts",
     "./i18n": "./src/i18n.ts",
     "./contrast": "./src/contrast.ts",
-    "./tokens.json": "./tokens.json"
+    "./tokens.json": "./tokens.json",
+    "./tokens.css": "./generated/tokens.css",
+    "./web-messages/*": "./i18n/web/*"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

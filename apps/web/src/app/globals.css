@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@import "@antisismo/config/tokens.css";
+
+@theme inline {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: var(--color-bg-deep);
+  color: var(--color-text-primary);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(60rem 40rem at 85% -10%, color-mix(in oklab, var(--color-accent-cyan) 14%, transparent), transparent 70%),
+    radial-gradient(50rem 30rem at -10% 110%, color-mix(in oklab, var(--color-alert-red) 10%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--color-bg-deep), var(--color-brand-navy));
+  background-attachment: fixed;
+}
+
+:where(a, button, select, input, textarea, summary):focus-visible {
+  outline: 3px solid var(--color-accent-cyan);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

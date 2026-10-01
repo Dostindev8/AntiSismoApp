@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "AntiSismo — Tu seguridad en cada paso",
+    "description": "Alertas sísmicas, guías de acción y números de emergencia verificados para República Dominicana."
+  },
+  "brand": {
+    "name": "AntiSismo",
+    "tagline": "Prevención • Alerta • Vida",
+    "slogan": "Tu seguridad en cada paso",
+    "closing": "La prevención está en tus manos",
+    "logoAlt": "AntiSismo — Prevención, Alerta, Vida"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido",
+    "mainNav": "Navegación principal",
+    "external": "(se abre en una pestaña nueva)"
+  },
+  "nav": {
+    "home": "Inicio",
+    "sos": "SOS",
+    "sosLabel": "Emergencia: ver número para llamar"
+  },
+  "language": {
+    "label": "Idioma",
+    "es-DO": "Español (RD)",
+    "en": "English",
+    "fr": "Français",
+    "pt": "Português"
+  },
+  "preview": {
+    "badge": "Vista previa",
+    "body": "Estamos construyendo la plataforma web. Los datos en vivo, el mapa y las cuentas llegarán en las próximas fases. Mientras tanto, la información de emergencia de esta página ya es oficial."
+  },
+  "home": {
+    "lead": "Información, alertas y herramientas para estar siempre preparado.",
+    "honestyTitle": "Compromiso de honestidad",
+    "honestyBody": "AntiSismo amplifica las alertas oficiales y no las reemplaza. Ningún sistema puede garantizar cero fallas. Sigue siempre las indicaciones de las autoridades.",
+    "featuresTitle": "Lo que encontrarás",
+    "features": {
+      "realtime": {
+        "title": "Alertas en tiempo real",
+        "body": "Sismos y otras amenazas desde fuentes oficiales, con la fuente y la hora de cada dato."
+      },
+      "maps": {
+        "title": "Mapas de vulnerabilidad",
+        "body": "Capas de riesgo para República Dominicana y la región."
+      },
+      "safeSites": {
+        "title": "Sitios seguros",
+        "body": "Refugios, hospitales y zonas altas cerca de ti, solo con datos verificados."
+      },
+      "multiHazard": {
+        "title": "Multiamenaza en Latinoamérica",
+        "body": "Guías claras de qué hacer antes, durante y después de cada amenaza."
+      }
+    },
+    "benefitsTitle": "Beneficios para ti y tu comunidad",
+    "benefits": {
+      "home": "Hogar más seguro",
+      "family": "Familia protegida",
+      "community": "Comunidades preparadas",
+      "future": "Unidos por un futuro más seguro"
+    }
+  },
+  "emergency": {
+    "title": "Emergencias en República Dominicana",
+    "call": "Llamar al {number}",
+    "callHint": "Tu teléfono te pedirá confirmar antes de llamar.",
+    "verified": "Número verificado · Fuente: {source}",
+    "verifiedAt": "Verificado el {date}",
+    "disclaimer": "AntiSismo no reemplaza a los servicios oficiales de emergencia."
+  },
+  "footer": {
+    "rights": "© {year} AntiSismo. Todos los derechos reservados.",
+    "sources": "Datos sísmicos: USGS y EMSC. Avisos de tsunami: NOAA (tsunami.gov). Siempre se muestra la fuente de cada dato."
+  },
+  "states": {
+    "loading": "Cargando…",
+    "notFoundTitle": "No encontramos esta página",
+    "notFoundBody": "Puede que el enlace esté mal escrito o que la página ya no exista.",
+    "backHome": "Volver al inicio",
+    "errorTitle": "Algo salió mal",
+    "errorBody": "No pudimos cargar esta sección. Tu información de emergencia sigue disponible en el inicio.",
+    "retry": "Intentar de nuevo"
+  }
+}
