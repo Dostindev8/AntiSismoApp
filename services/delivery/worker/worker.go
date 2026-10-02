@@ -1,4 +1,4 @@
-// Package worker consume la cola y entrega a FCM/APNs: reintentos ×3 con backoff+jitter, DLQ y alarma
+// Package worker consume la cola y entrega a FCM/APNs: reintentos (×3, ×6 en CRITICAL) con backoff+jitter acotado, DLQ y alarma
 // operativa. Una alerta fallida nunca se descarta en silencio.
 package worker
 
@@ -55,13 +55,23 @@ type Worker struct {
 	Log         *slog.Logger
 	Now         func() time.Time
 	MaxAttempts int
-	SendTimeout time.Duration
-	BackoffBase time.Duration
+	// CriticalMaxAttempts: presupuesto mayor para CRITICAL; un 5xx transitorio no debe dejar una
+	// alerta legítima en DLQ mientras su TTL (5 min) siga vigente.
+	CriticalMaxAttempts int
+	SendTimeout         time.Duration
+	BackoffBase         time.Duration
+	BackoffMax          time.Duration
 }
 
 func (w *Worker) defaults() {
 	if w.MaxAttempts <= 0 {
 		w.MaxAttempts = 3
+	}
+	if w.CriticalMaxAttempts < w.MaxAttempts {
+		w.CriticalMaxAttempts = max(6, w.MaxAttempts)
+	}
+	if w.BackoffMax <= 0 {
+		w.BackoffMax = 2 * time.Second
 	}
 	if w.SendTimeout <= 0 {
 		w.SendTimeout = 2 * time.Second
@@ -101,8 +111,12 @@ func (w *Worker) Run(ctx context.Context) error {
 func (w *Worker) Process(ctx context.Context, j queue.Job) bool {
 	w.defaults()
 	msg := transport.Message{Topic: j.Topic, Level: j.Level, AlertID: j.AlertID, Payload: j.Payload, Title: j.Title, Body: j.Body}
+	maxAttempts := w.MaxAttempts
+	if j.Level == "CRITICAL" {
+		maxAttempts = w.CriticalMaxAttempts
+	}
 	var err error
-	for attempt := 1; attempt <= w.MaxAttempts; attempt++ {
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
 		sctx, cancel := context.WithTimeout(ctx, w.SendTimeout)
 		err = w.Transport.Send(sctx, msg)
 		cancel()
@@ -117,11 +131,11 @@ func (w *Worker) Process(ctx context.Context, j queue.Job) bool {
 			}
 			return true
 		}
-		if transport.IsPermanent(err) || ctx.Err() != nil || attempt == w.MaxAttempts {
+		if transport.IsPermanent(err) || ctx.Err() != nil || attempt == maxAttempts {
 			break
 		}
 		w.Metrics.Retries.Add(1)
-		ceil := w.BackoffBase << (attempt - 1)
+		ceil := min(w.BackoffBase<<(attempt-1), w.BackoffMax)
 		t := time.NewTimer(time.Duration(rand.Float64() * float64(ceil)))
 		select {
 		case <-ctx.Done():
@@ -136,7 +150,7 @@ func (w *Worker) Process(ctx context.Context, j queue.Job) bool {
 	}
 	w.Metrics.Failed.Add(1)
 	w.Metrics.DLQ.Add(1)
-	j.Attempts = w.MaxAttempts
+	j.Attempts = maxAttempts
 	w.DLQ.Put(j)
 	w.Log.Error("delivery failed; moved to DLQ", "event", "delivery_dlq", "alert_id", j.AlertID, "topic", j.Topic,
 		"level", j.Level, "transport", w.Transport.Name(), "error", err.Error())
