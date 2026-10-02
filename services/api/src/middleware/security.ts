@@ -69,19 +69,16 @@ export function cookieNames(env: Env): CookieNames {
     : { refresh: "as_rt", csrf: "as_csrf", oauth: "as_oauth" };
 }
 
-export function baseCookie(env: Env, httpOnly: boolean, maxAgeMs: number): CookieOptions {
-  return { httpOnly, secure: env.NODE_ENV === "production", sameSite: "strict", path: "/", maxAge: maxAgeMs };
-}
-
-export function clearCookieOptions(env: Env, httpOnly: boolean, sameSite: "strict" | "lax" = "strict"): CookieOptions {
-  return { httpOnly, secure: env.NODE_ENV === "production", sameSite, path: "/" };
+/** Siempre Secure + HttpOnly: los navegadores aceptan cookies Secure en http://localhost. */
+export function clearCookieOptions(sameSite: "strict" | "lax" = "strict"): CookieOptions {
+  return { httpOnly: true, secure: true, sameSite, path: "/" };
 }
 
 export function newCsrfToken(): string {
   return randomBytes(24).toString("base64url");
 }
 
-/** Doble envío: la cabecera debe coincidir con la cookie legible por el mismo sitio. */
+/** Doble envío: la cabecera debe coincidir con la cookie HttpOnly; el token se entrega al cliente por CORS con credenciales. */
 export function requireCsrf(names: CookieNames): RequestHandler {
   return (req: Request, _res: Response, next: NextFunction) => {
     const cookie: unknown = req.cookies?.[names.csrf];

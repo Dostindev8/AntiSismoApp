@@ -4,6 +4,7 @@ const ops: Record<string, Record<string, Op>> = {
   "/healthz": { get: { summary: "Liveness", status: "200" } },
   "/readyz": { get: { summary: "Readiness (MongoDB obligatorio; Redis degradable)", status: "200" } },
   "/.well-known/jwks.json": { get: { summary: "Claves públicas EdDSA de los access tokens", status: "200" } },
+  "/v1/auth/csrf": { get: { summary: "Emite token CSRF (cookie HttpOnly + cuerpo, solo orígenes CORS permitidos)", status: "200" } },
   "/v1/auth/register": { post: { summary: "Registro (respuesta idéntica exista o no la cuenta)", status: "202" } },
   "/v1/auth/verify-email": { post: { summary: "Confirma correo con token de un solo uso", status: "200" } },
   "/v1/auth/verify-email/resend": { post: { summary: "Reenvía verificación (anti-enumeración)", status: "202" } },

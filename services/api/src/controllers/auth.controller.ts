@@ -1,11 +1,11 @@
 import type { Request, Response } from "express";
 import type { AppDeps } from "../context.js";
 import { errors } from "../lib/errors.js";
-import { baseCookie, clearCookieOptions, metaOf, newCsrfToken, type CookieNames } from "../middleware/security.js";
+import { clearCookieOptions, metaOf, newCsrfToken, type CookieNames } from "../middleware/security.js";
 import type { AuthService, IssuedSession } from "../services/auth.service.js";
-import { emailBody, loginBody, mfaLoginBody, oauthCallbackQuery, registerBody, resetBody, tokenBody } from "./schemas.js";
+import { emailBody, loginBody, mfaLoginBody, oauthCallbackQuery, oauthFlow, registerBody, resetBody, tokenBody } from "./schemas.js";
 
-const OAUTH_PURPOSE = "oauth";
+const OAUTH_AAD = "cookie:oauth-flow";
 const OAUTH_TTL_S = 600;
 
 export function createAuthController(deps: AppDeps, auth: AuthService, names: CookieNames) {
@@ -13,16 +13,20 @@ export function createAuthController(deps: AppDeps, auth: AuthService, names: Co
   const refreshMaxAge = env.API_REFRESH_TTL_S * 1000;
   const redirectUri = `${env.API_PUBLIC_ORIGIN}/v1/auth/google/callback`;
 
-  function setSessionCookies(res: Response, refreshToken: string): string {
+  function setCsrfCookie(res: Response): string {
     const csrf = newCsrfToken();
-    res.cookie(names.refresh, refreshToken, baseCookie(env, true, refreshMaxAge));
-    res.cookie(names.csrf, csrf, baseCookie(env, false, refreshMaxAge));
+    res.cookie(names.csrf, csrf, { httpOnly: true, secure: true, sameSite: "strict", path: "/", maxAge: refreshMaxAge });
     return csrf;
   }
 
+  function setSessionCookies(res: Response, refreshToken: string): string {
+    res.cookie(names.refresh, refreshToken, { httpOnly: true, secure: true, sameSite: "strict", path: "/", maxAge: refreshMaxAge });
+    return setCsrfCookie(res);
+  }
+
   function clearSessionCookies(res: Response) {
-    res.clearCookie(names.refresh, clearCookieOptions(env, true));
-    res.clearCookie(names.csrf, clearCookieOptions(env, false));
+    res.clearCookie(names.refresh, clearCookieOptions());
+    res.clearCookie(names.csrf, clearCookieOptions());
   }
 
   function sendSession(res: Response, session: IssuedSession, status = 200) {
@@ -38,6 +42,12 @@ export function createAuthController(deps: AppDeps, auth: AuthService, names: Co
   }
 
   return {
+    /** Entrega un token CSRF nuevo solo a orígenes permitidos por CORS (tras recargar la web, por ejemplo). */
+    csrf(_req: Request, res: Response) {
+      res.setHeader("Cache-Control", "no-store");
+      res.json({ csrfToken: setCsrfCookie(res) });
+    },
+
     async register(req: Request, res: Response) {
       await auth.register(registerBody.parse(req.body), metaOf(req, res));
       res.status(202).json({ status: "pending_verification" });
@@ -97,21 +107,22 @@ export function createAuthController(deps: AppDeps, auth: AuthService, names: Co
     async googleStart(_req: Request, res: Response) {
       if (!deps.google) throw errors.unavailable("OAUTH_UNAVAILABLE");
       const start = deps.google.start(redirectUri);
-      const sealed = await deps.tokens.signPurpose(OAUTH_PURPOSE, "anonymous", OAUTH_TTL_S, { state: start.state, verifier: start.verifier, nonce: start.nonce });
-      res.cookie(names.oauth, sealed, { ...baseCookie(env, true, OAUTH_TTL_S * 1000), sameSite: "lax" });
+      const payload = JSON.stringify({ state: start.state, verifier: start.verifier, nonce: start.nonce, exp: deps.now() + OAUTH_TTL_S * 1000 });
+      const sealed = deps.cipher.encrypt(payload, OAUTH_AAD);
+      res.cookie(names.oauth, sealed, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: OAUTH_TTL_S * 1000 });
       res.redirect(302, start.url);
     },
 
     async googleCallback(req: Request, res: Response) {
       const web = env.API_WEB_ORIGIN;
       const sealed: unknown = req.cookies?.[names.oauth];
-      res.clearCookie(names.oauth, clearCookieOptions(env, true, "lax"));
+      res.clearCookie(names.oauth, clearCookieOptions("lax"));
       try {
         if (!deps.google || typeof sealed !== "string") throw errors.invalidToken();
         const query = oauthCallbackQuery.parse(req.query);
-        const { extra } = await deps.tokens.verifyPurpose(OAUTH_PURPOSE, sealed);
-        if (!extra.state || extra.state !== query.state || !extra.verifier || !extra.nonce) throw errors.invalidToken();
-        const identity = await deps.google.exchange(query.code, extra.verifier, redirectUri, extra.nonce);
+        const flow = oauthFlow.parse(JSON.parse(deps.cipher.decrypt(sealed, OAUTH_AAD)));
+        if (flow.exp <= deps.now() || flow.state !== query.state) throw errors.invalidToken();
+        const identity = await deps.google.exchange(query.code, flow.verifier, redirectUri, flow.nonce);
         const result = await auth.loginWithGoogle(identity, metaOf(req, res));
         if (result.kind === "mfa") {
           res.redirect(302, `${web}/auth/callback#mfa=${encodeURIComponent(result.mfaToken)}`);

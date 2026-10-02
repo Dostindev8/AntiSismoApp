@@ -127,10 +127,12 @@ describe("login, refresh y logout", () => {
     const raw = rawCookies(res);
     const rt = raw.find((c) => c.startsWith("as_rt="));
     const csrf = raw.find((c) => c.startsWith("as_csrf="));
-    expect(rt).toMatch(/HttpOnly/);
-    expect(rt).toMatch(/SameSite=Strict/);
-    expect(rt).toMatch(/Path=\//);
-    expect(csrf).not.toMatch(/HttpOnly/);
+    for (const cookie of [rt, csrf]) {
+      expect(cookie).toMatch(/HttpOnly/);
+      expect(cookie).toMatch(/Secure/);
+      expect(cookie).toMatch(/SameSite=Strict/);
+      expect(cookie).toMatch(/Path=\//);
+    }
     const me = await request(h.app).get("/v1/me").set("Authorization", `Bearer ${res.body.accessToken}`).expect(200);
     expect(me.body).toMatchObject({ email: "luis@example.com", roles: ["user"], emailVerified: true, mfaEnabled: false });
     await request(h.app).get("/v1/me").expect(401, /UNAUTHENTICATED/);
@@ -156,6 +158,22 @@ describe("login, refresh y logout", () => {
       .expect(401);
     await request(h.app).get("/v1/me").set("Authorization", `Bearer ${rotated.body.accessToken}`).expect(401);
     expect(await AuditModel.exists({ action: "auth.refresh.reuse" })).toBeTruthy();
+  });
+
+  it("tras recargar la web, /csrf entrega un token nuevo que permite refrescar (solo con CORS permitido)", async () => {
+    const s = await login("luis@example.com");
+    const fresh = await request(h.app).get("/v1/auth/csrf").set("Origin", WEB).expect(200);
+    expect(fresh.headers["access-control-allow-origin"]).toBe(WEB);
+    expect(fresh.headers["cache-control"]).toBe("no-store");
+    const csrfCookie = cookiesOf(fresh).as_csrf;
+    expect(fresh.body.csrfToken).toBe(csrfCookie);
+    const evil = await request(h.app).get("/v1/auth/csrf").set("Origin", "https://evil.example").expect(200);
+    expect(evil.headers["access-control-allow-origin"]).toBeUndefined();
+    await request(h.app)
+      .post("/v1/auth/refresh")
+      .set("Cookie", `as_rt=${s.refresh}; as_csrf=${csrfCookie}`)
+      .set("X-CSRF-Token", fresh.body.csrfToken)
+      .expect(200);
   });
 
   it("logout revoca la sesión y el access token deja de servir de inmediato", async () => {
@@ -327,7 +345,12 @@ describe("Google OAuth 2.0 + PKCE", () => {
     const location = new URL(res.headers.location ?? "");
     const oauthCookie = rawCookies(res).find((c) => c.startsWith("as_oauth="));
     expect(oauthCookie).toMatch(/HttpOnly/);
+    expect(oauthCookie).toMatch(/Secure/);
     expect(oauthCookie).toMatch(/SameSite=Lax/);
+    const sealed = decodeURIComponent(cookiesOf(res).as_oauth ?? "");
+    expect(sealed.startsWith("v1.")).toBe(true);
+    expect(sealed).not.toContain(location.searchParams.get("state") ?? "<none>");
+    expect(sealed).not.toContain(location.searchParams.get("nonce") ?? "<none>");
     return {
       location,
       cookie: `as_oauth=${cookiesOf(res).as_oauth}`,
@@ -357,6 +380,10 @@ describe("Google OAuth 2.0 + PKCE", () => {
     const bad = await request(h.app).get(`/v1/auth/google/callback?code=abc&state=${"x".repeat(32)}`).set("Cookie", s.cookie).expect(302);
     expect(bad.headers.location).toBe(`${WEB}/auth/login#error=oauth`);
     await request(h.app).get(`/v1/auth/google/callback?code=abc&state=${s.state}`).expect(302, /error=oauth/);
+    const tampered = s.cookie.slice(0, -2) + (s.cookie.endsWith("AA") ? "BB" : "AA");
+    await request(h.app).get(`/v1/auth/google/callback?code=abc&state=${s.state}`).set("Cookie", tampered).expect(302, /error=oauth/);
+    h.clock.now += 601_000;
+    await request(h.app).get(`/v1/auth/google/callback?code=abc&state=${s.state}`).set("Cookie", s.cookie).expect(302, /error=oauth/);
     expect(h.google.fetchCalls).toBe(before);
 
     const s2 = await start();

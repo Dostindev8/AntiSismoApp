@@ -31,4 +31,10 @@ export const updateMeBody = z
 export const idParam = z.strictObject({ id: z.string().regex(/^[a-f0-9]{24}$/) });
 export const rolesBody = z.strictObject({ roles: z.array(z.enum(ROLES)).min(1).max(ROLES.length) });
 export const auditQuery = z.object({ limit: z.coerce.number().int().min(1).max(200).default(50) });
+export const oauthFlow = z.strictObject({
+  state: z.string().min(16).max(256),
+  verifier: z.string().min(43).max(128),
+  nonce: z.string().min(16).max(256),
+  exp: z.number().int().positive(),
+});
 export const oauthCallbackQuery = z.object({ code: z.string().min(1).max(2048), state: z.string().min(16).max(256) });

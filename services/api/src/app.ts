@@ -55,7 +55,6 @@ export function createApp(deps: AppDeps): Express {
   app.use(cors(env.API_CORS_ORIGINS));
   app.use(createLimiter(deps.kv, "global", env.API_RATE_WINDOW_MS, env.API_RATE_MAX));
   app.use(express.json({ limit: "32kb", strict: true }));
-  app.use(cookieParser());
   app.use(originGuard(env.API_CORS_ORIGINS));
 
   app.get("/healthz", (_req, res) => {
@@ -76,18 +75,20 @@ export function createApp(deps: AppDeps): Express {
 
   const authLimiter = createLimiter(deps.kv, "auth", env.API_RATE_AUTH_WINDOW_MS, env.API_RATE_AUTH_MAX);
   const csrf = requireCsrf(names);
+  const cookies = cookieParser();
   const authRoutes = Router();
+  authRoutes.get("/csrf", authLimiter, authCtl.csrf);
   authRoutes.post("/register", authLimiter, authCtl.register);
   authRoutes.post("/verify-email", authLimiter, authCtl.verifyEmail);
   authRoutes.post("/verify-email/resend", authLimiter, authCtl.resendVerification);
   authRoutes.post("/login", authLimiter, authCtl.login);
   authRoutes.post("/login/mfa", authLimiter, authCtl.loginMfa);
-  authRoutes.post("/refresh", csrf, authCtl.refresh);
-  authRoutes.post("/logout", csrf, authCtl.logout);
+  authRoutes.post("/refresh", authLimiter, cookies, csrf, authCtl.refresh);
+  authRoutes.post("/logout", authLimiter, cookies, csrf, authCtl.logout);
   authRoutes.post("/password/forgot", authLimiter, authCtl.forgotPassword);
   authRoutes.post("/password/reset", authLimiter, authCtl.resetPassword);
   authRoutes.get("/google/start", authLimiter, authCtl.googleStart);
-  authRoutes.get("/google/callback", authLimiter, authCtl.googleCallback);
+  authRoutes.get("/google/callback", authLimiter, cookies, authCtl.googleCallback);
   app.use("/v1/auth", authRoutes);
 
   const authenticated = requireAuth(deps.tokens, (sid) => auth.sessionIsActive(sid));
