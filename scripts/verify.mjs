@@ -120,6 +120,7 @@ run("pnpm typecheck (strict)", "pnpm", ["-r", "--if-present", "typecheck"]);
 run("pnpm lint (0 warnings)", "pnpm", ["-r", "--if-present", "lint"]);
 run("pnpm test (vitest)", "pnpm", ["-r", "--if-present", "test"]);
 run("web build (next)", "pnpm", ["--filter", "@antisismo/web", "build"]);
+run("api build (tsc)", "pnpm", ["--filter", "@antisismo/api", "build"]);
 run("pnpm audit (alto/crítico)", "pnpm", ["audit", "--audit-level", "high"]);
 
 const GITLEAKS = findTool("gitleaks", "GITLEAKS_BIN", []);
