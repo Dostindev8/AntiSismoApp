@@ -178,6 +178,8 @@ describe("login, refresh y logout", () => {
 
   it("logout revoca la sesión y el access token deja de servir de inmediato", async () => {
     const s = await login("luis@example.com");
+    await request(h.app).post("/v1/auth/logout").set("Cookie", s.cookieHeader).expect(403, /CSRF_REJECTED/);
+    await request(h.app).get("/v1/me").set("Authorization", `Bearer ${s.access}`).expect(200);
     await request(h.app).post("/v1/auth/logout").set("Cookie", s.cookieHeader).set("X-CSRF-Token", s.csrf).expect(204);
     await request(h.app).get("/v1/me").set("Authorization", `Bearer ${s.access}`).expect(401);
   });
