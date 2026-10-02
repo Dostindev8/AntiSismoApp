@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "AntiSismo — Your safety at every step",
+    "description": "Earthquake alerts, action guides and verified emergency numbers for the Dominican Republic."
+  },
+  "brand": {
+    "name": "AntiSismo",
+    "tagline": "Prevention • Alert • Life",
+    "slogan": "Your safety at every step",
+    "closing": "Prevention is in your hands",
+    "logoAlt": "AntiSismo — Prevention, Alert, Life"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main navigation",
+    "external": "(opens in a new tab)"
+  },
+  "nav": {
+    "home": "Home",
+    "sos": "SOS",
+    "sosLabel": "Emergency: see the number to call"
+  },
+  "language": {
+    "label": "Language",
+    "es-DO": "Español (RD)",
+    "en": "English",
+    "fr": "Français",
+    "pt": "Português"
+  },
+  "preview": {
+    "badge": "Preview",
+    "body": "We are building the web platform. Live data, the map and accounts will arrive in the next phases. Meanwhile, the emergency information on this page is already official."
+  },
+  "home": {
+    "lead": "Information, alerts and tools to always be prepared.",
+    "honestyTitle": "Our honesty commitment",
+    "honestyBody": "AntiSismo amplifies official alerts and does not replace them. No system can guarantee zero failures. Always follow the instructions of the authorities.",
+    "featuresTitle": "What you will find",
+    "features": {
+      "realtime": {
+        "title": "Real-time alerts",
+        "body": "Earthquakes and other hazards from official sources, with the source and time of every data point."
+      },
+      "maps": {
+        "title": "Vulnerability maps",
+        "body": "Risk layers for the Dominican Republic and the region."
+      },
+      "safeSites": {
+        "title": "Safe sites",
+        "body": "Shelters, hospitals and high ground near you, only with verified data."
+      },
+      "multiHazard": {
+        "title": "Multi-hazard in Latin America",
+        "body": "Clear guides on what to do before, during and after each hazard."
+      }
+    },
+    "benefitsTitle": "Benefits for you and your community",
+    "benefits": {
+      "home": "Safer homes",
+      "family": "Protected families",
+      "community": "Prepared communities",
+      "future": "United for a safer future"
+    }
+  },
+  "emergency": {
+    "title": "Emergencies in the Dominican Republic",
+    "call": "Call {number}",
+    "callHint": "Your phone will ask you to confirm before calling.",
+    "verified": "Verified number · Source: {source}",
+    "verifiedAt": "Verified on {date}",
+    "disclaimer": "AntiSismo does not replace official emergency services."
+  },
+  "footer": {
+    "rights": "© {year} AntiSismo. All rights reserved.",
+    "sources": "Earthquake data: USGS and EMSC. Tsunami messages: NOAA (tsunami.gov). The source of every data point is always shown."
+  },
+  "states": {
+    "loading": "Loading…",
+    "notFoundTitle": "We could not find this page",
+    "notFoundBody": "The link may be mistyped or the page may no longer exist.",
+    "backHome": "Back to home",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We could not load this section. Your emergency information is still available on the home page.",
+    "retry": "Try again"
+  }
+}

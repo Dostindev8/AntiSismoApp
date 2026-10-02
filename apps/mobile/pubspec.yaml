@@ -60,15 +60,15 @@ flutter_launcher_icons:
   image_path: assets/brand/app_icon.png
   remove_alpha_ios: true
   min_sdk_android: 24
-  adaptive_icon_background: "#0A2540"
+  adaptive_icon_background: "#0B2A5B"
   adaptive_icon_foreground: assets/brand/app_icon_fg.png
   adaptive_icon_monochrome: assets/brand/app_icon_mono.png
 
 flutter_native_splash:
-  color: "#0A2540"
+  color: "#0B2A5B"
   image: assets/brand/splash.png
   android_12:
-    color: "#0A2540"
+    color: "#0B2A5B"
     image: assets/brand/app_icon_fg.png
-    icon_background_color: "#0A2540"
+    icon_background_color: "#0B2A5B"
   fullscreen: false

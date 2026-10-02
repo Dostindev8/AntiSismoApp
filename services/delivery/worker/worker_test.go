@@ -71,14 +71,55 @@ func TestTransientFailureRetriesThenSucceeds(t *testing.T) {
 	}
 }
 
+func transient(n int) []error {
+	errs := make([]error, n)
+	for i := range errs {
+		errs[i] = errors.New("503")
+	}
+	return errs
+}
+
+func TestCriticalGetsLargerRetryBudgetThanInformative(t *testing.T) {
+	var buf bytes.Buffer
+	crit := &scripted{errs: transient(5)}
+	w := newWorker(crit, &buf)
+	if !w.Process(context.Background(), j("1")) || crit.calls != 6 || w.DLQ.Len() != 0 {
+		t.Fatalf("critical: calls=%d dlq=%d", crit.calls, w.DLQ.Len())
+	}
+	info := &scripted{errs: transient(5)}
+	w = newWorker(info, &buf)
+	job := j("2")
+	job.Level = "INFORMATIVE"
+	if w.Process(context.Background(), job) || info.calls != 3 || w.DLQ.Len() != 1 || w.DLQ.Drain()[0].Attempts != 3 {
+		t.Fatalf("informative: calls=%d", info.calls)
+	}
+}
+
+func TestBackoffIsCapped(t *testing.T) {
+	var buf bytes.Buffer
+	tr := &scripted{errs: transient(5)}
+	w := newWorker(tr, &buf)
+	w.BackoffBase, w.BackoffMax = time.Hour, 5*time.Millisecond
+	done := make(chan bool, 1)
+	go func() { done <- w.Process(context.Background(), j("1")) }()
+	select {
+	case ok := <-done:
+		if !ok {
+			t.Fatal("expected success after capped backoff")
+		}
+	case <-time.After(5 * time.Second):
+		t.Fatal("backoff not capped")
+	}
+}
+
 func TestFCMDownGoesToDLQWithOpsAlarm(t *testing.T) {
 	var buf bytes.Buffer
-	tr := &scripted{errs: []error{errors.New("503"), errors.New("503"), errors.New("503"), errors.New("503")}}
+	tr := &scripted{errs: transient(7)}
 	w := newWorker(tr, &buf)
 	if w.Process(context.Background(), j("1")) {
 		t.Fatal("expected failure")
 	}
-	if tr.calls != 3 || w.DLQ.Len() != 1 || w.Metrics.DLQ.Load() != 1 || w.Metrics.Failed.Load() != 1 {
+	if tr.calls != 6 || w.DLQ.Len() != 1 || w.Metrics.DLQ.Load() != 1 || w.Metrics.Failed.Load() != 1 {
 		t.Fatalf("calls=%d dlq=%d", tr.calls, w.DLQ.Len())
 	}
 	logs := buf.String()
@@ -86,7 +127,7 @@ func TestFCMDownGoesToDLQWithOpsAlarm(t *testing.T) {
 		t.Fatalf("ops alarm log missing or leaks payload: %s", logs)
 	}
 	drained := w.DLQ.Drain()
-	if len(drained) != 1 || drained[0].Attempts != 3 || w.DLQ.Len() != 0 {
+	if len(drained) != 1 || drained[0].Attempts != 6 || w.DLQ.Len() != 0 {
 		t.Fatalf("drain: %+v", drained)
 	}
 }

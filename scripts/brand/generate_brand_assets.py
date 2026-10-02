@@ -9,10 +9,12 @@ Salidas (apps/mobile/assets/brand/):
   app_icon_fg.png         foreground adaptive icon Android (escudo dentro de la zona segura 66%)
   splash.png              escudo para splash nativo (1152x1152, transparente, margen ≥ 25 % por lado)
   icon_29.png             prueba de legibilidad a 29 px
+Salidas web (apps/web/public/brand/): logo-fullcolor, symbol (escudo), icon-192/512, icon-maskable-512, apple-touch-icon, favicon.ico
 Uso: python scripts/brand/generate_brand_assets.py
 """
 from __future__ import annotations
 
+import json
 from collections import deque
 from pathlib import Path
 
@@ -21,9 +23,17 @@ from PIL import Image, ImageDraw, ImageFilter
 ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "docs" / "brand" / "logo-fullcolor.png"
 OUT = ROOT / "apps" / "mobile" / "assets" / "brand"
+WEB = ROOT / "apps" / "web" / "public" / "brand"
 
-NAVY = (10, 37, 64)
-DEEP = (6, 19, 43)
+_COLORS = json.loads((ROOT / "packages" / "config" / "tokens.json").read_text(encoding="utf-8"))["colors"]
+
+
+def _rgb(hex_color: str) -> tuple[int, int, int]:
+    return tuple(int(hex_color[i : i + 2], 16) for i in (1, 3, 5))
+
+
+NAVY = _rgb(_COLORS["brandNavy"])
+DEEP = _rgb(_COLORS["bgDeep"])
 
 
 def remove_outer_background(img: Image.Image, tol: int = 38) -> Image.Image:
@@ -187,7 +197,20 @@ def main() -> None:
     paste_center(Image.new("RGBA", (1024, 1024), (0, 0, 0, 0)), fit(mono(sym), 600)).save(OUT / "app_icon_mono.png", optimize=True)
     paste_center(Image.new("RGBA", (1152, 1152), (0, 0, 0, 0)), fit(sym, 576)).save(OUT / "splash.png", optimize=True)
     icon.resize((29, 29), Image.LANCZOS).save(OUT / "icon_29.png")
-    print("brand assets ->", OUT)
+
+    # Web/PWA (apps/web/public/brand): mismos píxeles del escudo oficial, sin recolorear ni redibujar.
+    WEB.mkdir(parents=True, exist_ok=True)
+    web_logo = fit(solid, 480)
+    web_logo.save(WEB / "logo-fullcolor.png", optimize=True)
+    web_logo.save(WEB / "logo-fullcolor.webp", quality=90, method=6)
+    fit(sym, 192).save(WEB / "symbol.webp", quality=92, method=6)
+    for size in (192, 512):
+        icon.resize((size, size), Image.LANCZOS).save(WEB / f"icon-{size}.png", optimize=True)
+    # maskable: el símbolo dentro del círculo seguro (80 % central) de la especificación W3C
+    paste_center(gradient(512), fit(sym, 300)).convert("RGB").save(WEB / "icon-maskable-512.png", optimize=True)
+    icon.resize((180, 180), Image.LANCZOS).save(WEB / "apple-touch-icon.png", optimize=True)
+    icon.save(WEB / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    print("brand assets ->", OUT, "+", WEB)
     for p in sorted(OUT.iterdir()):
         with Image.open(p) as im:
             print(f"  {p.name:22s} {im.size[0]}x{im.size[1]} {im.mode}")

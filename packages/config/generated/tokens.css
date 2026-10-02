@@ -1,23 +1,23 @@
 /* GENERADO por scripts/gen-tokens.mjs desde packages/config/tokens.json — NO EDITAR A MANO. */
 @theme {
-  --color-brand-navy: #0A2540;
-  --color-bg-deep: #06132B;
-  --color-surface: #0F2F55;
-  --color-surface-high: #14406F;
-  --color-alert-red: #E63946;
-  --color-alert-red-strong: #C1121F;
+  --color-brand-navy: #0B2A5B;
+  --color-bg-deep: #061633;
+  --color-surface: #0F2347;
+  --color-surface-high: #13305F;
+  --color-alert-red: #FF2D3F;
+  --color-alert-red-strong: #E3182D;
   --color-alert-red-text: #FFB4BB;
-  --color-safe-green: #2A9D8F;
-  --color-safe-green-strong: #1F7A6F;
+  --color-safe-green: #1FB26B;
+  --color-safe-green-strong: #13784A;
   --color-accent-blue: #1E6FEB;
-  --color-accent-cyan: #38BDF8;
+  --color-accent-cyan: #2AA8FF;
   --color-text-primary: #FFFFFF;
-  --color-text-muted: #9FB3C8;
-  --color-warn-amber: #F59E0B;
+  --color-text-muted: #B8C7E0;
+  --color-warn-amber: #F5A623;
   --color-light-bg: #FFFFFF;
   --color-light-bg-alt: #F3F6FA;
   --color-splash-edge: #000000;
-  --color-hazard-earthquake: #E63946;
+  --color-hazard-earthquake: #FF2D3F;
   --color-hazard-tsunami: #1E90FF;
   --color-hazard-volcano: #FF5A36;
   --color-hazard-flood: #3B82F6;

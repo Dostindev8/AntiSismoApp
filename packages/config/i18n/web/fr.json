@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "AntiSismo — Votre sécurité à chaque pas",
+    "description": "Alertes sismiques, guides d’action et numéros d’urgence vérifiés pour la République dominicaine."
+  },
+  "brand": {
+    "name": "AntiSismo",
+    "tagline": "Prévention • Alerte • Vie",
+    "slogan": "Votre sécurité à chaque pas",
+    "closing": "La prévention est entre vos mains",
+    "logoAlt": "AntiSismo — Prévention, Alerte, Vie"
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu",
+    "mainNav": "Navigation principale",
+    "external": "(s’ouvre dans un nouvel onglet)"
+  },
+  "nav": {
+    "home": "Accueil",
+    "sos": "SOS",
+    "sosLabel": "Urgence : voir le numéro à appeler"
+  },
+  "language": {
+    "label": "Langue",
+    "es-DO": "Español (RD)",
+    "en": "English",
+    "fr": "Français",
+    "pt": "Português"
+  },
+  "preview": {
+    "badge": "Aperçu",
+    "body": "Nous construisons la plateforme web. Les données en direct, la carte et les comptes arriveront lors des prochaines phases. En attendant, les informations d’urgence de cette page sont déjà officielles."
+  },
+  "home": {
+    "lead": "Informations, alertes et outils pour être toujours prêt.",
+    "honestyTitle": "Notre engagement d’honnêteté",
+    "honestyBody": "AntiSismo relaie les alertes officielles et ne les remplace pas. Aucun système ne peut garantir zéro défaillance. Suivez toujours les consignes des autorités.",
+    "featuresTitle": "Ce que vous trouverez",
+    "features": {
+      "realtime": {
+        "title": "Alertes en temps réel",
+        "body": "Séismes et autres menaces issus de sources officielles, avec la source et l’heure de chaque donnée."
+      },
+      "maps": {
+        "title": "Cartes de vulnérabilité",
+        "body": "Couches de risque pour la République dominicaine et la région."
+      },
+      "safeSites": {
+        "title": "Lieux sûrs",
+        "body": "Abris, hôpitaux et zones en hauteur près de chez vous, uniquement avec des données vérifiées."
+      },
+      "multiHazard": {
+        "title": "Multirisque en Amérique latine",
+        "body": "Des guides clairs sur quoi faire avant, pendant et après chaque menace."
+      }
+    },
+    "benefitsTitle": "Des bénéfices pour vous et votre communauté",
+    "benefits": {
+      "home": "Un foyer plus sûr",
+      "family": "Une famille protégée",
+      "community": "Des communautés préparées",
+      "future": "Unis pour un avenir plus sûr"
+    }
+  },
+  "emergency": {
+    "title": "Urgences en République dominicaine",
+    "call": "Appeler le {number}",
+    "callHint": "Votre téléphone vous demandera de confirmer avant d’appeler.",
+    "verified": "Numéro vérifié · Source : {source}",
+    "verifiedAt": "Vérifié le {date}",
+    "disclaimer": "AntiSismo ne remplace pas les services d’urgence officiels."
+  },
+  "footer": {
+    "rights": "© {year} AntiSismo. Tous droits réservés.",
+    "sources": "Données sismiques : USGS et EMSC. Messages de tsunami : NOAA (tsunami.gov). La source de chaque donnée est toujours indiquée."
+  },
+  "states": {
+    "loading": "Chargement…",
+    "notFoundTitle": "Page introuvable",
+    "notFoundBody": "Le lien est peut-être mal saisi ou la page n’existe plus.",
+    "backHome": "Retour à l’accueil",
+    "errorTitle": "Un problème est survenu",
+    "errorBody": "Nous n’avons pas pu charger cette section. Vos informations d’urgence restent disponibles sur la page d’accueil.",
+    "retry": "Réessayer"
+  }
+}

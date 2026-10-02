@@ -1,0 +1,14 @@
+title = "AntiSismo gitleaks config"
+
+[extend]
+useDefault = true
+
+# Solo artefactos de build locales e ignorados por git (claves efímeras por build de Next).
+[[allowlists]]
+description = "Artefactos de build ignorados por .gitignore"
+paths = [
+  '''(^|/)\.next/''',
+  '''(^|/)node_modules/''',
+  '''(^|/)\.dart_tool/''',
+  '''apps/mobile/build/''',
+]
