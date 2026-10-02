@@ -6,6 +6,7 @@ import (
 	"errors"
 	"log/slog"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
@@ -61,10 +62,28 @@ func (f *fake) Run(ctx context.Context, out chan<- sources.Observation) error {
 	return ctx.Err()
 }
 
-func start(t *testing.T, provs ...sources.AlertSourceProvider) (chan Emitted, *health.Registry, *bytes.Buffer, context.CancelFunc) {
+// syncBuffer: el runner escribe logs desde sus goroutines mientras el test los lee.
+type syncBuffer struct {
+	mu  sync.Mutex
+	buf bytes.Buffer
+}
+
+func (b *syncBuffer) Write(p []byte) (int, error) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	return b.buf.Write(p)
+}
+
+func (b *syncBuffer) String() string {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	return b.buf.String()
+}
+
+func start(t *testing.T, provs ...sources.AlertSourceProvider) (chan Emitted, *health.Registry, *syncBuffer, context.CancelFunc) {
 	t.Helper()
-	var logs bytes.Buffer
-	log := slog.New(slog.NewJSONHandler(&logs, nil))
+	logs := &syncBuffer{}
+	log := slog.New(slog.NewJSONHandler(logs, nil))
 	h := health.NewRegistry(50*time.Millisecond, log, nil)
 	h.Register("usgs", true)
 	h.Register("emsc", false)
@@ -75,7 +94,7 @@ func start(t *testing.T, provs ...sources.AlertSourceProvider) (chan Emitted, *h
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() { _ = r.Run(ctx) }()
-	return out, h, &logs, cancel
+	return out, h, logs, cancel
 }
 
 func recv(t *testing.T, ch chan Emitted) Emitted {
