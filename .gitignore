@@ -5,6 +5,9 @@ dist/
 out/
 coverage/
 *.tsbuildinfo
+test-results/
+playwright-report/
+blob-report/
 
 # Go
 /services/**/bin/
