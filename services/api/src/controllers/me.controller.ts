@@ -7,7 +7,7 @@ import { sessionsRepo, toObjectId, usersRepo } from "../repositories/index.js";
 import type { Auditor } from "../services/audit.service.js";
 import { phoneAad, type AuthService } from "../services/auth.service.js";
 import type { MfaService } from "../services/mfa.service.js";
-import { idParam, mfaDisableBody, totpBody, updateMeBody } from "./schemas.js";
+import { idParam, mfaDisableBody, termsBody, totpBody, updateMeBody } from "./schemas.js";
 
 export function createMeController(deps: AppDeps, auth: AuthService, mfa: MfaService, audit: Auditor) {
   return {
@@ -53,6 +53,24 @@ export function createMeController(deps: AppDeps, auth: AuthService, mfa: MfaSer
       if (!id || !(await sessionsRepo.revoke(id, "user_revoked", new Date(deps.now()), userId))) throw errors.notFound();
       await audit(metaOf(req, res), { action: "session.revoke", outcome: "success", actorId: userId, targetId: String(id) });
       res.status(204).end();
+    },
+
+    async revokeOtherSessions(req: Request, res: Response) {
+      const { userId, sessionId } = authOf(res);
+      const revoked = await sessionsRepo.revokeOthers(userId, sessionId, "user_revoked_others", new Date(deps.now()));
+      await audit(metaOf(req, res), { action: "session.revoke_others", outcome: "success", actorId: userId, meta: { revoked } });
+      res.json({ revoked });
+    },
+
+    async acceptTerms(req: Request, res: Response) {
+      const { userId } = authOf(res);
+      const { termsVersion } = termsBody.parse(req.body);
+      auth.assertCurrentTerms(termsVersion);
+      await usersRepo.update(userId, { "terms.version": termsVersion, "terms.acceptedAt": new Date(deps.now()) });
+      await audit(metaOf(req, res), { action: "terms.accept", outcome: "success", actorId: userId, meta: { version: termsVersion } });
+      const user = await usersRepo.findById(userId);
+      if (!user) throw errors.notFound();
+      res.json(auth.toPublic(user));
     },
 
     async mfaSetup(_req: Request, res: Response) {

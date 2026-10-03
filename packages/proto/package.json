@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./account": "./src/account.ts",
     "./schemas/*": "./schemas/*",
     "./fixtures/*": "./fixtures/*"
   },

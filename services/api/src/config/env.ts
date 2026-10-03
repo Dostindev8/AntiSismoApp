@@ -42,10 +42,12 @@ const schema = z
     API_RATE_MAX: int(300, 10, 100_000),
     API_RATE_AUTH_WINDOW_MS: int(900_000, 1000, 86_400_000),
     API_RATE_AUTH_MAX: int(30, 3, 10_000),
+    API_RATE_SESSION_MAX: int(300, 10, 100_000),
     API_VERIFY_TTL_S: int(86_400, 600, 604_800),
     API_RESET_TTL_S: int(1800, 300, 86_400),
     API_AUDIT_RETENTION_DAYS: int(365, 30, 3650),
     API_MAIL_FROM: z.string().min(3).default("AntiSismo <no-reply@antisismo.app>"),
+    API_TERMS_VERSION: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).default("2026-10-03"),
     API_GOOGLE_CLIENT_ID: z.string().min(1).optional(),
     API_GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
   })

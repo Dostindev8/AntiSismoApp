@@ -10,7 +10,9 @@ export const registerBody = z.strictObject({
   password,
   displayName: z.string().trim().min(1).max(80).optional(),
   locale: z.enum(LOCALES).optional(),
+  termsVersion: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
 });
+export const termsBody = z.strictObject({ termsVersion: z.string().regex(/^\d{4}-\d{2}-\d{2}$/) });
 
 export const loginBody = z.strictObject({ email, password });
 export const emailBody = z.strictObject({ email });
