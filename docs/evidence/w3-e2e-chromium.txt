@@ -1,0 +1,28 @@
+﻿# W3 e2e (Playwright Version 1.63.0) — 2026-10-03T11:42:09.1610921-06:00
+# API real (services/api dev:memory, Mongo en memoria) + web 'next build && next start'
+
+Running 12 tests using 1 worker
+
+node.exe : (node:14280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+En C:\Users\UserGPC\AppData\Roaming\npm\pnpm.ps1: 24 Carácter: 5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:14280) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:6:3 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ anti-enumeraci├│n: mismo mensaje para cuenta inexistente y contrase├▒a incorrecta (2.0s)
+  ok  2 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:21:3 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ anti-enumeraci├│n: registrar un correo existente responde igual (1.0s)
+  ok  3 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:34:5 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ redirecci├│n abierta bloqueada: next=https://evil.example/robar (1.4s)
+  ok  4 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:34:5 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ redirecci├│n abierta bloqueada: next=//evil.example (1.4s)
+  ok  5 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:34:5 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ redirecci├│n abierta bloqueada: next=/\evil.example (1.4s)
+  ok  6 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:34:5 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ redirecci├│n abierta bloqueada: next=javascript:alert(1) (1.4s)
+  ok  7 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:51:3 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ guarda: /account sin sesi├│n lleva a login con next interno (557ms)
+  ok  8 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:56:3 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ validaci├│n accesible: el foco va al primer campo inv├ílido (1.2s)
+  ok  9 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:69:3 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ enlaces inv├ílidos o incompletos muestran un estado claro (1.6s)
+  ok 10 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:80:3 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ sin conexi├│n: aviso visible y env├¡o deshabilitado sin perder lo escrito (491ms)
+  ok 11 [chromium] ÔÇ║ e2e\auth-abuse.e2e.ts:91:3 ÔÇ║ abuso y casos l├¡mite de autenticaci├│n ÔÇ║ las pantallas de cuenta no se indexan (855ms)
+  ok 12 [chromium] ÔÇ║ e2e\auth-flow.e2e.ts:11:1 ÔÇ║ cuenta de extremo a extremo (8.9s)
+
+  12 passed (38.2s)
+

@@ -79,3 +79,35 @@ BLK-14 (flutter_tts KGP), BLK-15 (sin dispositivo/emulador).
 | F6 | 🔶 | navegación/perfil/guías/en; Eventos/Mapa/Familia pendientes |
 | F7–F8 | ⏳ | — |
 | F9 | 🔶 | ver `docs/STATUS.md` |
+
+## Web W3 — 2026-10-03 · Autenticación web contra el API real
+
+Rama `feat/web-w3-auth` (sobre `feat/antisismo-v1`). Plan en `docs/WEB_PLAN.md`; decisiones en ADR 0008.
+
+✅ COMPLETADO
+- 9 pantallas: registro (medidor de fuerza, aceptación explícita y versionada de términos), verificar correo,
+  login + MFA (TOTP o código de recuperación), recuperar y restablecer contraseña (revoca todas las sesiones),
+  callback de Google, Mi cuenta (re-aceptación de términos), Seguridad (QR + clave manual + 10 códigos de
+  recuperación, desactivar MFA) y Sesiones (cerrar una o todas las demás).
+- Cliente same-origin `/api/v1` (reescritura `beforeFiles`; sin API ⇒ 503 `API_NOT_CONFIGURED` controlado),
+  access token solo en memoria, refresh serializado con Web Locks + CSRF nuevo, BroadcastChannel entre pestañas.
+- API: `GET /v1/auth/policy`, `POST /v1/me/sessions/revoke-others`, `POST /v1/me/terms`, términos versionados
+  (`TERMS_OUTDATED`), límite de sesión separado del de login, servidor e2e (Mongo en memoria + buzón loopback),
+  contratos zod compartidos `@antisismo/proto/account` validados contra respuestas reales.
+- Guarda que no desmonta lo escrito al expirar la sesión; foco al primer error; `autocomplete`; noindex.
+- i18n es-DO/en/fr/pt con las mismas claves y marcadores (test).
+
+📈 MÉTRICAS (este turno)
+- `node scripts/verify.mjs`: **GATE VERDE 29/29** (`docs/evidence/w3-gate.txt`).
+- API vitest 58/58 · web vitest 57 · config 84.
+- Playwright Chromium **12/12** contra API real (`docs/evidence/w3-e2e-chromium.txt`): flujo completo +
+  anti-enumeración, redirección abierta (4 variantes), guarda, foco accesible, enlaces inválidos, sin conexión, noindex.
+- axe (WCAG 2.2 AA): 0 serias/críticas en 9 estados de pantalla — **solo tema oscuro y viewport escritorio** (matriz completa en W7).
+
+⚠️ BLOQUEADORES: BLK-23 (host del API), BLK-24 (aviso `braces` sin parche, solo desarrollo).
+
+| Fase web | Estado | Evidencia |
+|---|---|---|
+| W0 auditoría | ✅ | `docs/WEB_PLAN.md`, `docs/evidence/w0-baseline-gate.txt` |
+| W3 auth | ✅ local · CI pendiente del PR | `w3-gate.txt`, `w3-e2e-chromium.txt` |
+| W4–W8 | ⏳ | — |
