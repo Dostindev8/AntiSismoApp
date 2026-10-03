@@ -290,6 +290,38 @@ describe("perfil, sesiones y RBAC", () => {
     await request(h.app).delete("/v1/me/sessions/not-an-id").set("Authorization", `Bearer ${user.access}`).expect(400);
   });
 
+  it("cerrar las demás sesiones conserva la actual y no toca cuentas ajenas", async () => {
+    await verifiedUser("multi@example.com");
+    const current = await login("multi@example.com");
+    const a = await login("multi@example.com");
+    const b = await login("multi@example.com");
+    const stranger = await login("otro@example.com");
+    const res = await request(h.app).post("/v1/me/sessions/revoke-others").set("Authorization", `Bearer ${current.access}`).expect(200);
+    expect(res.body.revoked).toBe(2);
+    await request(h.app).get("/v1/me").set("Authorization", `Bearer ${current.access}`).expect(200);
+    for (const s of [a, b]) await request(h.app).get("/v1/me").set("Authorization", `Bearer ${s.access}`).expect(401);
+    await request(h.app).get("/v1/me").set("Authorization", `Bearer ${stranger.access}`).expect(200);
+    await request(h.app).post("/v1/auth/refresh").set("Cookie", a.cookieHeader).set("X-CSRF-Token", a.csrf).expect(401);
+    const audit = await AuditModel.findOne({ action: "session.revoke_others" }).lean();
+    expect(audit?.meta).toMatchObject({ revoked: 2 });
+  });
+
+  it("términos: registro guarda la versión vigente; una versión vieja se rechaza; se puede aceptar después", async () => {
+    const version = h.deps.env.API_TERMS_VERSION;
+    await request(h.app).post("/v1/auth/register").send({ email: "old@example.com", password: PASSWORD, termsVersion: "2020-01-01" }).expect(409, /TERMS_OUTDATED/);
+    expect(await UserModel.exists({ email: "old@example.com" })).toBeNull();
+    await request(h.app).post("/v1/auth/register").send({ email: "terms@example.com", password: PASSWORD, termsVersion: version }).expect(202);
+    const stored = await UserModel.findOne({ email: "terms@example.com" }).lean();
+    expect(stored?.terms?.version).toBe(version);
+    expect(stored?.terms?.acceptedAt).toBeInstanceOf(Date);
+
+    const auth = { Authorization: `Bearer ${user.access}` };
+    await request(h.app).post("/v1/me/terms").set(auth).send({ termsVersion: "2020-01-01" }).expect(409);
+    await request(h.app).post("/v1/me/terms").set(auth).send({ termsVersion: "bad" }).expect(400);
+    const accepted = await request(h.app).post("/v1/me/terms").set(auth).send({ termsVersion: version }).expect(200);
+    expect(accepted.body.termsVersion).toBe(version);
+  });
+
   it("admin exige rol platform_admin Y sesión con MFA; auditoría sin PII", async () => {
     await request(h.app).get("/v1/admin/audit").set("Authorization", `Bearer ${user.access}`).expect(403, /FORBIDDEN/);
 

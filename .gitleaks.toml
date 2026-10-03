@@ -12,3 +12,17 @@ paths = [
   '''(^|/)\.dart_tool/''',
   '''apps/mobile/build/''',
 ]
+
+# Contraseñas ficticias de pruebas (usuarios efímeros contra Mongo en memoria; no dan acceso a nada).
+# Ambas condiciones: solo esos valores exactos y solo en archivos de prueba.
+[[allowlists]]
+description = "Contraseñas ficticias de fixtures de prueba"
+condition = "AND"
+paths = [
+  '''(^|/)apps/web/e2e/[^/]+\.ts$''',
+  '''(^|/)services/api/src/[^/]+\.test\.ts$''',
+]
+regexTarget = "line"
+regexes = [
+  '''"(sismo-placa-caribe-2026-Norte|falla-septentrional-2026-Cibao|placa-tectonica-caribe-2026|incorrecta-123456|nada-que-ver-1234)"''',
+]

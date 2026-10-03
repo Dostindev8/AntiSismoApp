@@ -18,7 +18,9 @@
   "nav": {
     "home": "Accueil",
     "sos": "SOS",
-    "sosLabel": "Urgence : voir le numéro à appeler"
+    "sosLabel": "Urgence : voir le numéro à appeler",
+    "account": "Mon compte",
+    "signIn": "Se connecter"
   },
   "language": {
     "label": "Langue",
@@ -82,5 +84,178 @@
     "errorTitle": "Un problème est survenu",
     "errorBody": "Nous n’avons pas pu charger cette section. Vos informations d’urgence restent disponibles sur la page d’accueil.",
     "retry": "Réessayer"
+  },
+  "forms": {
+    "required": "Ce champ est obligatoire.",
+    "invalidEmail": "Saisissez une adresse valide, par exemple nom@domaine.com.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "optional": "(facultatif)",
+    "submitting": "Envoi…",
+    "offline": "Vous êtes hors ligne. Vérifiez votre connexion et réessayez ; ce que vous avez saisi ne sera pas perdu.",
+    "errorSummary": "Vérifiez les champs signalés pour continuer."
+  },
+  "auth": {
+    "policyLoading": "Chargement des exigences de sécurité…",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "displayName": "Nom affiché",
+    "strength": {
+      "label": "Robustesse du mot de passe : {level}",
+      "level0": "très faible",
+      "level1": "faible",
+      "level2": "correcte",
+      "level3": "forte",
+      "level4": "très forte",
+      "hint": "Utilisez au moins {min} caractères. Une phrase de plusieurs mots est facile à retenir et difficile à deviner.",
+      "tooShort": "Trop court : au moins {min} caractères.",
+      "tooLong": "Trop long : au plus {max} caractères.",
+      "containsEmail": "N’incluez pas votre adresse e-mail dans le mot de passe.",
+      "repetitive": "Évitez les répétitions ou les suites.",
+      "common": "Il contient un mot très courant.",
+      "fewClasses": "Mélangez lettres, chiffres ou symboles, ou utilisez une phrase plus longue.",
+      "breachNote": "À l’envoi, nous vérifions anonymement qu’il n’apparaît pas dans des fuites connues (seul un fragment de son empreinte est partagé)."
+    },
+    "register": {
+      "title": "Créer un compte",
+      "lead": "Le compte est facultatif : recevoir les alertes publiques ne l’exige jamais. Il sert pour Ma Famille, votre plan d’urgence et la gestion de vos appareils.",
+      "termsLabel": "J’accepte les <terms>Conditions d’utilisation</terms> et la <privacy>Politique de confidentialité</privacy>.",
+      "termsRequired": "Vous devez accepter les conditions et la politique de confidentialité pour créer le compte.",
+      "submit": "Créer le compte",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "doneTitle": "Consultez vos e-mails",
+      "doneBody": "Si l’adresse {email} peut être enregistrée, vous recevrez un lien pour la confirmer. Le lien expire et ne fonctionne qu’une fois.",
+      "termsOutdated": "Les conditions ont été mises à jour pendant que vous remplissiez le formulaire. Relisez-les et acceptez-les à nouveau."
+    },
+    "verify": {
+      "title": "Confirmer l’adresse",
+      "verifying": "Confirmation de votre adresse…",
+      "successTitle": "Adresse confirmée",
+      "successBody": "Votre compte est prêt. Vous pouvez vous connecter.",
+      "invalidTitle": "Le lien n’est pas valide",
+      "invalidBody": "Il a peut-être expiré ou déjà été utilisé. Demandez-en un nouveau.",
+      "resendTitle": "Renvoyer le lien de confirmation",
+      "resendSubmit": "Renvoyer le lien",
+      "resendDone": "Si le compte existe et doit encore être confirmé, nous vous avons envoyé un nouveau lien."
+    },
+    "login": {
+      "title": "Se connecter",
+      "submit": "Se connecter",
+      "forgot": "Mot de passe oublié ?",
+      "noAccount": "Pas encore de compte ?",
+      "createAccount": "En créer un",
+      "google": "Continuer avec Google",
+      "or": "ou",
+      "notVerified": "Confirmez votre adresse avant de vous connecter.",
+      "resendLink": "Renvoyer le lien de confirmation",
+      "oauthError": "Nous n’avons pas pu terminer la connexion avec Google. Réessayez ou utilisez votre adresse e-mail.",
+      "lockNote": "Par sécurité, l’accès est suspendu quelques minutes après plusieurs tentatives échouées."
+    },
+    "mfa": {
+      "title": "Vérification en deux étapes",
+      "lead": "Saisissez le code à 6 chiffres de votre application d’authentification.",
+      "code": "Code de vérification",
+      "recoveryCode": "Code de récupération",
+      "useRecovery": "Utiliser un code de récupération",
+      "useTotp": "Utiliser l’application d’authentification",
+      "submit": "Vérifier",
+      "back": "Retour",
+      "expired": "La vérification a expiré. Reconnectez-vous."
+    },
+    "forgot": {
+      "title": "Récupérer le mot de passe",
+      "lead": "Nous vous enverrons un lien pour créer un nouveau mot de passe.",
+      "submit": "Envoyer le lien",
+      "doneTitle": "Consultez vos e-mails",
+      "doneBody": "S’il existe un compte pour {email}, vous recevrez un lien de réinitialisation. Il expire vite et ne fonctionne qu’une fois."
+    },
+    "reset": {
+      "title": "Nouveau mot de passe",
+      "submit": "Enregistrer le mot de passe",
+      "doneTitle": "Mot de passe mis à jour",
+      "doneBody": "Par sécurité, nous avons fermé la session sur tous vos appareils. Connectez-vous avec votre nouveau mot de passe.",
+      "missingToken": "Ce lien est incomplet. Rouvrez-le depuis l’e-mail ou demandez-en un autre."
+    },
+    "callback": {
+      "title": "Finalisation de la connexion…"
+    },
+    "guard": {
+      "checking": "Vérification de votre session…",
+      "expiredTitle": "Votre session a pris fin",
+      "expiredBody": "Ce que vous avez saisi reste à l’écran. Connectez-vous dans un autre onglet et réessayez.",
+      "signInAgain": "Se reconnecter"
+    }
+  },
+  "account": {
+    "title": "Mon compte",
+    "profile": "Profil",
+    "emailVerified": "Adresse confirmée",
+    "emailUnverified": "Adresse non confirmée",
+    "mfaOn": "Vérification en deux étapes activée",
+    "mfaOff": "Vérification en deux étapes désactivée",
+    "security": "Sécurité",
+    "sessions": "Sessions et appareils",
+    "signOut": "Se déconnecter",
+    "termsTitle": "Nous avons mis à jour nos conditions",
+    "termsBody": "Consultez les <terms>Conditions d’utilisation</terms> et la <privacy>Politique de confidentialité</privacy> en vigueur ({version}) pour continuer à utiliser votre compte.",
+    "termsAccept": "J’ai lu et j’accepte",
+    "termsAccepted": "Merci. Nous avons enregistré votre acceptation.",
+    "securityPage": {
+      "title": "Sécurité du compte",
+      "mfaTitle": "Vérification en deux étapes (TOTP)",
+      "mfaLead": "En plus du mot de passe, un code d’une application d’authentification sera demandé.",
+      "start": "Activer la vérification en deux étapes",
+      "scan": "Scannez ce code avec votre application d’authentification, ou saisissez la clé manuellement.",
+      "qrAlt": "Code QR pour configurer la vérification en deux étapes",
+      "secret": "Clé manuelle",
+      "confirm": "Confirmer et activer",
+      "codesTitle": "Conservez vos codes de récupération",
+      "codesLead": "Chaque code fonctionne une seule fois si vous perdez votre téléphone. Nous ne les afficherons plus.",
+      "copy": "Copier les codes",
+      "copied": "Copiés",
+      "download": "Télécharger .txt",
+      "codesSaved": "Je les ai conservés",
+      "enabled": "La vérification en deux étapes est activée.",
+      "disableTitle": "Désactiver la vérification en deux étapes",
+      "disableSubmit": "Désactiver",
+      "disabled": "La vérification en deux étapes a été désactivée."
+    },
+    "sessionsPage": {
+      "title": "Sessions et appareils",
+      "lead": "Ces appareils ont une session ouverte. Si vous n’en reconnaissez pas un, fermez-la et changez votre mot de passe.",
+      "current": "Cet appareil",
+      "unknownDevice": "Appareil inconnu",
+      "device": "{browser} sur {os}",
+      "lastUsed": "Dernière utilisation : {date}",
+      "started": "Ouverte le : {date}",
+      "mfa": "Avec vérification en deux étapes",
+      "revoke": "Fermer cette session",
+      "revokeOthers": "Fermer toutes les autres sessions",
+      "revokedOthers": "Sessions fermées : {count}.",
+      "revoked": "Session fermée.",
+      "empty": "Aucune autre session ouverte."
+    }
+  },
+  "errors": {
+    "INVALID_CREDENTIALS": "Adresse ou mot de passe incorrect, ou accès temporairement suspendu par sécurité.",
+    "EMAIL_NOT_VERIFIED": "Confirmez votre adresse avant de vous connecter.",
+    "WEAK_PASSWORD": "Le mot de passe ne respecte pas les exigences.",
+    "BREACHED_PASSWORD": "Ce mot de passe apparaît dans des fuites de données connues. Choisissez-en un autre.",
+    "INVALID_TOKEN": "Le lien ou la session n’est plus valide.",
+    "INVALID_MFA_CODE": "Le code n’est pas valide.",
+    "RATE_LIMITED": "Trop de tentatives. Attendez quelques minutes et réessayez.",
+    "NETWORK_ERROR": "Impossible de joindre le serveur. Vérifiez votre connexion.",
+    "TIMEOUT": "Le serveur a mis trop de temps à répondre. Réessayez.",
+    "VALIDATION_ERROR": "Certaines données ne sont pas valides. Vérifiez-les.",
+    "TERMS_OUTDATED": "Les conditions ont changé. Consultez la version en vigueur.",
+    "CSRF_REJECTED": "La demande n’a pas pu être vérifiée. Rechargez la page.",
+    "UNAVAILABLE": "Le service est indisponible pour le moment. Les alertes publiques et les numéros d’urgence continuent de fonctionner.",
+    "MFA_ALREADY_ENABLED": "La vérification en deux étapes est déjà activée.",
+    "MFA_SETUP_REQUIRED": "Recommencez la configuration.",
+    "MFA_NOT_ENABLED": "La vérification en deux étapes n’est pas activée.",
+    "UNAUTHENTICATED": "Votre session a pris fin. Reconnectez-vous.",
+    "API_NOT_CONFIGURED": "Les comptes ne sont pas disponibles sur ce déploiement. Les alertes publiques et les numéros d’urgence continuent de fonctionner.",
+    "GENERIC": "Une erreur s’est produite. Réessayez."
   }
 }

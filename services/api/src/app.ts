@@ -74,17 +74,27 @@ export function createApp(deps: AppDeps): Express {
   });
 
   const authLimiter = createLimiter(deps.kv, "auth", env.API_RATE_AUTH_WINDOW_MS, env.API_RATE_AUTH_MAX);
+  // Renovar sesión ocurre en cada recarga: límite propio para no bloquear el login por navegar.
+  const sessionLimiter = createLimiter(deps.kv, "session", env.API_RATE_AUTH_WINDOW_MS, env.API_RATE_SESSION_MAX);
   const csrf = requireCsrf(names);
   const cookies = cookieParser();
   const authRoutes = Router();
-  authRoutes.get("/csrf", authLimiter, authCtl.csrf);
+  authRoutes.get("/policy", (_req, res) => {
+    res.setHeader("Cache-Control", "public, max-age=300");
+    res.json({
+      termsVersion: env.API_TERMS_VERSION,
+      password: { min: env.API_PASSWORD_MIN, max: env.API_PASSWORD_MAX },
+      google: deps.google !== null,
+    });
+  });
+  authRoutes.get("/csrf", sessionLimiter, authCtl.csrf);
   authRoutes.post("/register", authLimiter, authCtl.register);
   authRoutes.post("/verify-email", authLimiter, authCtl.verifyEmail);
   authRoutes.post("/verify-email/resend", authLimiter, authCtl.resendVerification);
   authRoutes.post("/login", authLimiter, authCtl.login);
   authRoutes.post("/login/mfa", authLimiter, authCtl.loginMfa);
-  authRoutes.post("/refresh", authLimiter, cookies, csrf, authCtl.refresh);
-  authRoutes.post("/logout", authLimiter, cookies, csrf, authCtl.logout);
+  authRoutes.post("/refresh", sessionLimiter, cookies, csrf, authCtl.refresh);
+  authRoutes.post("/logout", sessionLimiter, cookies, csrf, authCtl.logout);
   authRoutes.post("/password/forgot", authLimiter, authCtl.forgotPassword);
   authRoutes.post("/password/reset", authLimiter, authCtl.resetPassword);
   authRoutes.get("/google/start", authLimiter, authCtl.googleStart);
@@ -97,7 +107,9 @@ export function createApp(deps: AppDeps): Express {
   me.get("/", meCtl.get);
   me.patch("/", meCtl.update);
   me.get("/sessions", meCtl.listSessions);
+  me.post("/sessions/revoke-others", meCtl.revokeOtherSessions);
   me.delete("/sessions/:id", meCtl.revokeSession);
+  me.post("/terms", meCtl.acceptTerms);
   me.post("/mfa/setup", meCtl.mfaSetup);
   me.post("/mfa/enable", authLimiter, meCtl.mfaEnable);
   me.post("/mfa/disable", authLimiter, meCtl.mfaDisable);

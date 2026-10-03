@@ -34,7 +34,15 @@ export const usersRepo = {
   findByGoogleSub(sub: string) {
     return UserModel.findOne({ googleSub: sub }).lean<UserDoc>().exec();
   },
-  async create(data: { email: string; passwordHash: string | null; displayName: string | null; locale: Locale; emailVerifiedAt?: Date; googleSub?: string }) {
+  async create(data: {
+    email: string;
+    passwordHash: string | null;
+    displayName: string | null;
+    locale: Locale;
+    emailVerifiedAt?: Date;
+    googleSub?: string;
+    terms?: { version: string; acceptedAt: Date };
+  }) {
     const doc = await UserModel.create(data);
     return doc.toObject<UserDoc>();
   },
@@ -90,6 +98,13 @@ export const sessionsRepo = {
     const filter = userId ? { _id: id, userId, revokedAt: null } : { _id: id, revokedAt: null };
     const res = await SessionModel.updateOne(filter, { $set: { revokedAt: now, revokedReason: reason } }).exec();
     return res.modifiedCount === 1;
+  },
+  async revokeOthers(userId: Types.ObjectId, keepId: Types.ObjectId, reason: string, now: Date): Promise<number> {
+    const res = await SessionModel.updateMany(
+      { userId, revokedAt: null, _id: trusted({ $ne: keepId }) },
+      { $set: { revokedAt: now, revokedReason: reason } },
+    ).exec();
+    return res.modifiedCount;
   },
   async revokeAllForUser(userId: Types.ObjectId, reason: string, now: Date) {
     await SessionModel.updateMany({ userId, revokedAt: null }, { $set: { revokedAt: now, revokedReason: reason } }).exec();

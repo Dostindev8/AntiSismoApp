@@ -18,7 +18,9 @@
   "nav": {
     "home": "Home",
     "sos": "SOS",
-    "sosLabel": "Emergency: see the number to call"
+    "sosLabel": "Emergency: see the number to call",
+    "account": "My account",
+    "signIn": "Sign in"
   },
   "language": {
     "label": "Language",
@@ -82,5 +84,178 @@
     "errorTitle": "Something went wrong",
     "errorBody": "We could not load this section. Your emergency information is still available on the home page.",
     "retry": "Try again"
+  },
+  "forms": {
+    "required": "This field is required.",
+    "invalidEmail": "Enter a valid email, for example name@domain.com.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "optional": "(optional)",
+    "submitting": "Sending…",
+    "offline": "You are offline. Check your connection and try again; what you typed will not be lost.",
+    "errorSummary": "Check the highlighted fields to continue."
+  },
+  "auth": {
+    "policyLoading": "Loading security requirements…",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New password",
+    "displayName": "Display name",
+    "strength": {
+      "label": "Password strength: {level}",
+      "level0": "very weak",
+      "level1": "weak",
+      "level2": "fair",
+      "level3": "strong",
+      "level4": "very strong",
+      "hint": "Use at least {min} characters. A multi-word phrase is easy to remember and hard to guess.",
+      "tooShort": "Too short: at least {min} characters.",
+      "tooLong": "Too long: at most {max} characters.",
+      "containsEmail": "Do not include your email in the password.",
+      "repetitive": "Avoid repetitions or sequences.",
+      "common": "It contains a very common word.",
+      "fewClasses": "Mix letters, numbers or symbols, or use a longer phrase.",
+      "breachNote": "When you submit it, we check anonymously that it does not appear in known breaches (only a fragment of its hash is shared)."
+    },
+    "register": {
+      "title": "Create account",
+      "lead": "An account is optional: receiving public alerts never requires one. It enables My Family, your emergency plan and managing your devices.",
+      "termsLabel": "I accept the <terms>Terms of use</terms> and the <privacy>Privacy policy</privacy>.",
+      "termsRequired": "You must accept the terms and the privacy policy to create an account.",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "doneTitle": "Check your email",
+      "doneBody": "If the address {email} can be registered, you will receive a link to confirm it. The link expires and works only once.",
+      "termsOutdated": "The terms were updated while you filled in the form. Review them and accept them again."
+    },
+    "verify": {
+      "title": "Confirm email",
+      "verifying": "Confirming your email…",
+      "successTitle": "Email confirmed",
+      "successBody": "Your account is ready. You can now sign in.",
+      "invalidTitle": "The link is not valid",
+      "invalidBody": "It may have expired or already been used. Request a new one.",
+      "resendTitle": "Resend confirmation link",
+      "resendSubmit": "Resend link",
+      "resendDone": "If the account exists and still needs confirmation, we sent you a new link."
+    },
+    "login": {
+      "title": "Sign in",
+      "submit": "Sign in",
+      "forgot": "Forgot your password?",
+      "noAccount": "No account yet?",
+      "createAccount": "Create one",
+      "google": "Continue with Google",
+      "or": "or",
+      "notVerified": "Confirm your email before signing in.",
+      "resendLink": "Resend the confirmation link",
+      "oauthError": "We could not complete Google sign-in. Try again or use your email.",
+      "lockNote": "For security, access is paused for a few minutes after several failed attempts."
+    },
+    "mfa": {
+      "title": "Two-step verification",
+      "lead": "Enter the 6-digit code from your authenticator app.",
+      "code": "Verification code",
+      "recoveryCode": "Recovery code",
+      "useRecovery": "Use a recovery code",
+      "useTotp": "Use the authenticator app",
+      "submit": "Verify",
+      "back": "Back",
+      "expired": "Verification expired. Sign in again."
+    },
+    "forgot": {
+      "title": "Recover password",
+      "lead": "We will send you a link to create a new password.",
+      "submit": "Send link",
+      "doneTitle": "Check your email",
+      "doneBody": "If an account exists for {email}, you will receive a link to reset your password. It expires soon and works only once."
+    },
+    "reset": {
+      "title": "New password",
+      "submit": "Save password",
+      "doneTitle": "Password updated",
+      "doneBody": "For your security we signed you out on all devices. Sign in with your new password.",
+      "missingToken": "This link is incomplete. Open it again from the email or request another one."
+    },
+    "callback": {
+      "title": "Completing sign-in…"
+    },
+    "guard": {
+      "checking": "Checking your session…",
+      "expiredTitle": "Your session ended",
+      "expiredBody": "What you typed is still on screen. Sign in in another tab and try again.",
+      "signInAgain": "Sign in again"
+    }
+  },
+  "account": {
+    "title": "My account",
+    "profile": "Profile",
+    "emailVerified": "Email confirmed",
+    "emailUnverified": "Email not confirmed",
+    "mfaOn": "Two-step verification on",
+    "mfaOff": "Two-step verification off",
+    "security": "Security",
+    "sessions": "Sessions and devices",
+    "signOut": "Sign out",
+    "termsTitle": "We updated our terms",
+    "termsBody": "Review the current <terms>Terms of use</terms> and <privacy>Privacy policy</privacy> ({version}) to keep using your account.",
+    "termsAccept": "I have read and accept",
+    "termsAccepted": "Thank you. We recorded your acceptance.",
+    "securityPage": {
+      "title": "Account security",
+      "mfaTitle": "Two-step verification (TOTP)",
+      "mfaLead": "In addition to your password, a code from an authenticator app will be required.",
+      "start": "Turn on two-step verification",
+      "scan": "Scan this code with your authenticator app, or enter the key manually.",
+      "qrAlt": "QR code to set up two-step verification",
+      "secret": "Manual key",
+      "confirm": "Confirm and turn on",
+      "codesTitle": "Save your recovery codes",
+      "codesLead": "Each code works once if you lose your phone. We will not show them again.",
+      "copy": "Copy codes",
+      "copied": "Copied",
+      "download": "Download .txt",
+      "codesSaved": "I saved them",
+      "enabled": "Two-step verification is on.",
+      "disableTitle": "Turn off two-step verification",
+      "disableSubmit": "Turn off",
+      "disabled": "Two-step verification was turned off."
+    },
+    "sessionsPage": {
+      "title": "Sessions and devices",
+      "lead": "These devices have an open session. If you do not recognize one, sign it out and change your password.",
+      "current": "This device",
+      "unknownDevice": "Unknown device",
+      "device": "{browser} on {os}",
+      "lastUsed": "Last used: {date}",
+      "started": "Started: {date}",
+      "mfa": "With two-step verification",
+      "revoke": "Sign out this session",
+      "revokeOthers": "Sign out all other sessions",
+      "revokedOthers": "Sessions signed out: {count}.",
+      "revoked": "Session signed out.",
+      "empty": "There are no other open sessions."
+    }
+  },
+  "errors": {
+    "INVALID_CREDENTIALS": "Wrong email or password, or access is temporarily paused for security.",
+    "EMAIL_NOT_VERIFIED": "Confirm your email before signing in.",
+    "WEAK_PASSWORD": "The password does not meet the requirements.",
+    "BREACHED_PASSWORD": "This password appears in known data breaches. Choose another one.",
+    "INVALID_TOKEN": "The link or session is no longer valid.",
+    "INVALID_MFA_CODE": "The code is not valid.",
+    "RATE_LIMITED": "Too many attempts. Wait a few minutes and try again.",
+    "NETWORK_ERROR": "Cannot reach the server. Check your connection.",
+    "TIMEOUT": "The server took too long to respond. Try again.",
+    "VALIDATION_ERROR": "Some data is not valid. Please review it.",
+    "TERMS_OUTDATED": "The terms changed. Review the current version.",
+    "CSRF_REJECTED": "The request could not be verified. Reload the page.",
+    "UNAVAILABLE": "The service is unavailable right now. Public alerts and emergency numbers keep working.",
+    "MFA_ALREADY_ENABLED": "Two-step verification is already on.",
+    "MFA_SETUP_REQUIRED": "Start the setup again.",
+    "MFA_NOT_ENABLED": "Two-step verification is not on.",
+    "UNAUTHENTICATED": "Your session ended. Sign in again.",
+    "API_NOT_CONFIGURED": "Accounts are not available on this deployment. Public alerts and emergency numbers keep working.",
+    "GENERIC": "Something went wrong. Try again."
   }
 }

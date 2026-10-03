@@ -23,6 +23,7 @@ export interface UserDoc {
     recoveryHashes: string[];
   };
   lockout: { failedCount: number; lockedUntil?: Date | null };
+  terms?: { version?: string | null; acceptedAt?: Date | null };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -48,6 +49,10 @@ const userSchema = new Schema<UserDoc>(
     lockout: {
       failedCount: { type: Number, default: 0 },
       lockedUntil: { type: Date, default: null },
+    },
+    terms: {
+      version: { type: String, maxlength: 20, default: null },
+      acceptedAt: { type: Date, default: null },
     },
   },
   { timestamps: true, strict: "throw" },

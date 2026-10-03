@@ -45,3 +45,17 @@ del sistema (sin CALL_PHONE); números sanitizados; ficha AES-256-GCM + FLAG_SEC
 enviada al servidor; recibir alertas no requiere cuenta.
 
 📈 MÉTRICAS: ver `PROGRESS.md` iteración 2.
+
+## Web (W3–W8) — 2026-10-03
+
+| Fase | Estado | Evidencia / motivo |
+|---|---|---|
+| W3 Autenticación web | ✅ local (CI: pendiente del PR) | gate 29/29, Playwright 12/12 contra API real, axe 0 serias/críticas (oscuro, escritorio) |
+| W4 Alertas en vivo + mapa | ⏳ | — |
+| W5 SOS, Mi Familia, plan | ⏳ | — |
+| W6 Panel empresa + legales | ⏳ | las páginas `/legal/*` enlazadas desde el registro llegan en W6 |
+| W7 Calidad multi-navegador | ⏳ | falta tema claro, Firefox/WebKit/móvil, matriz axe 2 temas × 3 viewports, Lighthouse, Trivy/ZAP |
+| W8 Docs + release | ⏳ | — |
+
+Límites honestos de W3: solo Chromium; el inicio con Google no se probó de extremo a extremo (requiere
+credenciales reales, BLK-19); la web aún no tiene tema claro (W7).

@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
 
+import { AccountNav } from "./auth/AccountNav";
 import { Icon } from "./Icon";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -22,6 +23,7 @@ export async function SiteHeader() {
         </Link>
         <nav aria-label={t("a11y.mainNav")} className="flex items-center gap-2">
           <LanguageSwitcher />
+          <AccountNav />
           <a
             href="#emergencia"
             aria-label={t("nav.sosLabel")}

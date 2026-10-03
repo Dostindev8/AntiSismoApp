@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import type { Types } from "mongoose";
 import type { AppDeps, RequestMeta } from "../context.js";
-import { errors } from "../lib/errors.js";
+import { AppError, errors } from "../lib/errors.js";
 import { burnPasswordCheck, checkPolicy, hashPassword, verifyPassword } from "../lib/password.js";
 import { hashToken, newOpaqueToken } from "../lib/tokens.js";
 import { verifyTotp } from "../lib/totp.js";
@@ -20,6 +20,7 @@ export interface PublicUser {
   emailVerified: boolean;
   mfaEnabled: boolean;
   phone: string | null;
+  termsVersion: string | null;
 }
 
 export interface IssuedSession {
@@ -61,7 +62,14 @@ export function createAuthService(deps: AppDeps, audit: Auditor) {
       emailVerified: Boolean(user.emailVerifiedAt),
       mfaEnabled: user.mfa.enabled,
       phone,
+      termsVersion: user.terms?.version ?? null,
     };
+  }
+
+  function assertCurrentTerms(version: string | undefined) {
+    if (version !== undefined && version !== env.API_TERMS_VERSION) {
+      throw new AppError(409, "TERMS_OUTDATED", "Terms version is not current", { current: env.API_TERMS_VERSION });
+    }
   }
 
   async function assertAcceptablePassword(password: string, email: string) {
@@ -130,8 +138,14 @@ export function createAuthService(deps: AppDeps, audit: Auditor) {
     verifySecondFactor,
     assertAcceptablePassword,
 
-    async register(input: { email: string; password: string; displayName?: string | undefined; locale?: Locale | undefined }, meta: RequestMeta) {
+    assertCurrentTerms,
+
+    async register(
+      input: { email: string; password: string; displayName?: string | undefined; locale?: Locale | undefined; termsVersion?: string | undefined },
+      meta: RequestMeta,
+    ) {
       const email = input.email.toLowerCase();
+      assertCurrentTerms(input.termsVersion);
       await assertAcceptablePassword(input.password, email);
       const passwordHash = await hashPassword(input.password);
       const existing = await usersRepo.findByEmail(email);
@@ -141,7 +155,13 @@ export function createAuthService(deps: AppDeps, audit: Auditor) {
         return;
       }
       try {
-        const user = await usersRepo.create({ email, passwordHash, displayName: input.displayName ?? null, locale: input.locale ?? "es-DO" });
+        const user = await usersRepo.create({
+          email,
+          passwordHash,
+          displayName: input.displayName ?? null,
+          locale: input.locale ?? "es-DO",
+          ...(input.termsVersion ? { terms: { version: input.termsVersion, acceptedAt: now() } } : {}),
+        });
         await sendOneTimeLink(user, "verify_email", env.API_VERIFY_TTL_S);
         await audit(meta, { action: "auth.register", outcome: "success", actorId: user._id });
       } catch (err) {
