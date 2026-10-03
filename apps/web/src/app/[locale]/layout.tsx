@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 
 import tokens from "@antisismo/config/tokens.json";
 
+import { AuthProvider } from "@/components/auth/AuthProvider";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { routing } from "@/i18n/routing";
@@ -57,6 +58,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale} className={`${inter.variable} ${poppins.variable}`}>
       <body className="font-sans antialiased">
         <NextIntlClientProvider>
+          <AuthProvider>
           <a
             href="#contenido"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-light-bg focus:px-4 focus:py-2 focus:text-brand-navy"
@@ -68,6 +70,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             {children}
           </main>
           <SiteFooter />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -18,7 +18,9 @@
   "nav": {
     "home": "Inicio",
     "sos": "SOS",
-    "sosLabel": "Emergencia: ver número para llamar"
+    "sosLabel": "Emergencia: ver número para llamar",
+    "account": "Mi cuenta",
+    "signIn": "Iniciar sesión"
   },
   "language": {
     "label": "Idioma",
@@ -82,5 +84,178 @@
     "errorTitle": "Algo salió mal",
     "errorBody": "No pudimos cargar esta sección. Tu información de emergencia sigue disponible en el inicio.",
     "retry": "Intentar de nuevo"
+  },
+  "forms": {
+    "required": "Este campo es obligatorio.",
+    "invalidEmail": "Escribe un correo válido, por ejemplo nombre@dominio.com.",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "optional": "(opcional)",
+    "submitting": "Enviando…",
+    "offline": "Sin conexión. Revisa tu internet e inténtalo de nuevo; lo que escribiste no se perderá.",
+    "errorSummary": "Revisa los campos marcados para continuar."
+  },
+  "auth": {
+    "policyLoading": "Cargando requisitos de seguridad…",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "newPassword": "Nueva contraseña",
+    "displayName": "Nombre para mostrar",
+    "strength": {
+      "label": "Seguridad de la contraseña: {level}",
+      "level0": "muy débil",
+      "level1": "débil",
+      "level2": "aceptable",
+      "level3": "fuerte",
+      "level4": "muy fuerte",
+      "hint": "Usa al menos {min} caracteres. Una frase de varias palabras es fácil de recordar y difícil de adivinar.",
+      "tooShort": "Faltan caracteres: mínimo {min}.",
+      "tooLong": "Demasiado larga: máximo {max} caracteres.",
+      "containsEmail": "No incluyas tu correo en la contraseña.",
+      "repetitive": "Evita repeticiones o secuencias.",
+      "common": "Contiene una palabra muy común.",
+      "fewClasses": "Combina letras, números o símbolos, o usa una frase más larga.",
+      "breachNote": "Al enviarla, comprobamos de forma anónima que no aparezca en filtraciones conocidas (solo se comparte un fragmento del hash)."
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "lead": "La cuenta es opcional: recibir alertas públicas nunca la requiere. Te sirve para Mi Familia, tu plan de emergencia y gestionar tus dispositivos.",
+      "termsLabel": "Acepto los <terms>Términos de uso</terms> y la <privacy>Política de privacidad</privacy>.",
+      "termsRequired": "Debes aceptar los términos y la política de privacidad para crear la cuenta.",
+      "submit": "Crear cuenta",
+      "haveAccount": "¿Ya tienes cuenta?",
+      "doneTitle": "Revisa tu correo",
+      "doneBody": "Si la dirección {email} puede registrarse, recibirás un enlace para confirmarla. El enlace caduca y solo funciona una vez.",
+      "termsOutdated": "Los términos se actualizaron mientras completabas el formulario. Revísalos y vuelve a aceptarlos."
+    },
+    "verify": {
+      "title": "Confirmar correo",
+      "verifying": "Confirmando tu correo…",
+      "successTitle": "Correo confirmado",
+      "successBody": "Tu cuenta está lista. Ya puedes iniciar sesión.",
+      "invalidTitle": "El enlace no es válido",
+      "invalidBody": "Puede que haya caducado o que ya se haya usado. Pide uno nuevo.",
+      "resendTitle": "Reenviar enlace de confirmación",
+      "resendSubmit": "Reenviar enlace",
+      "resendDone": "Si la cuenta existe y falta confirmarla, te enviamos un enlace nuevo."
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "submit": "Entrar",
+      "forgot": "¿Olvidaste tu contraseña?",
+      "noAccount": "¿No tienes cuenta?",
+      "createAccount": "Crear una",
+      "google": "Continuar con Google",
+      "or": "o",
+      "notVerified": "Confirma tu correo antes de entrar.",
+      "resendLink": "Reenviar el enlace de confirmación",
+      "oauthError": "No pudimos completar el acceso con Google. Inténtalo de nuevo o usa tu correo.",
+      "lockNote": "Por seguridad, después de varios intentos fallidos el acceso se pausa unos minutos."
+    },
+    "mfa": {
+      "title": "Verificación en dos pasos",
+      "lead": "Escribe el código de 6 dígitos de tu aplicación de autenticación.",
+      "code": "Código de verificación",
+      "recoveryCode": "Código de recuperación",
+      "useRecovery": "Usar un código de recuperación",
+      "useTotp": "Usar la aplicación de autenticación",
+      "submit": "Verificar",
+      "back": "Volver",
+      "expired": "La verificación caducó. Inicia sesión de nuevo."
+    },
+    "forgot": {
+      "title": "Recuperar contraseña",
+      "lead": "Te enviaremos un enlace para crear una contraseña nueva.",
+      "submit": "Enviar enlace",
+      "doneTitle": "Revisa tu correo",
+      "doneBody": "Si existe una cuenta con {email}, recibirás un enlace para restablecer la contraseña. Caduca pronto y solo funciona una vez."
+    },
+    "reset": {
+      "title": "Nueva contraseña",
+      "submit": "Guardar contraseña",
+      "doneTitle": "Contraseña actualizada",
+      "doneBody": "Por seguridad cerramos la sesión en todos tus dispositivos. Inicia sesión con tu nueva contraseña.",
+      "missingToken": "Este enlace está incompleto. Ábrelo de nuevo desde el correo o pide otro."
+    },
+    "callback": {
+      "title": "Completando el acceso…"
+    },
+    "guard": {
+      "checking": "Comprobando tu sesión…",
+      "expiredTitle": "Tu sesión terminó",
+      "expiredBody": "Lo que escribiste sigue en pantalla. Inicia sesión en otra pestaña y vuelve a intentarlo.",
+      "signInAgain": "Iniciar sesión de nuevo"
+    }
+  },
+  "account": {
+    "title": "Mi cuenta",
+    "profile": "Perfil",
+    "emailVerified": "Correo confirmado",
+    "emailUnverified": "Correo sin confirmar",
+    "mfaOn": "Verificación en dos pasos activada",
+    "mfaOff": "Verificación en dos pasos desactivada",
+    "security": "Seguridad",
+    "sessions": "Sesiones y dispositivos",
+    "signOut": "Cerrar sesión",
+    "termsTitle": "Actualizamos los términos",
+    "termsBody": "Revisa los <terms>Términos de uso</terms> y la <privacy>Política de privacidad</privacy> vigentes ({version}) para seguir usando tu cuenta.",
+    "termsAccept": "He leído y acepto",
+    "termsAccepted": "Gracias. Registramos tu aceptación.",
+    "securityPage": {
+      "title": "Seguridad de la cuenta",
+      "mfaTitle": "Verificación en dos pasos (TOTP)",
+      "mfaLead": "Además de la contraseña, se pedirá un código de una aplicación de autenticación.",
+      "start": "Activar verificación en dos pasos",
+      "scan": "Escanea este código con tu aplicación de autenticación, o escribe la clave manualmente.",
+      "qrAlt": "Código QR para configurar la verificación en dos pasos",
+      "secret": "Clave manual",
+      "confirm": "Confirmar y activar",
+      "codesTitle": "Guarda tus códigos de recuperación",
+      "codesLead": "Cada código sirve una sola vez si pierdes tu teléfono. No volveremos a mostrarlos.",
+      "copy": "Copiar códigos",
+      "copied": "Copiados",
+      "download": "Descargar .txt",
+      "codesSaved": "Ya los guardé",
+      "enabled": "La verificación en dos pasos está activada.",
+      "disableTitle": "Desactivar verificación en dos pasos",
+      "disableSubmit": "Desactivar",
+      "disabled": "La verificación en dos pasos quedó desactivada."
+    },
+    "sessionsPage": {
+      "title": "Sesiones y dispositivos",
+      "lead": "Estos son los dispositivos con sesión abierta. Si no reconoces alguno, ciérralo y cambia tu contraseña.",
+      "current": "Este dispositivo",
+      "unknownDevice": "Dispositivo desconocido",
+      "device": "{browser} en {os}",
+      "lastUsed": "Último uso: {date}",
+      "started": "Inició: {date}",
+      "mfa": "Con verificación en dos pasos",
+      "revoke": "Cerrar esta sesión",
+      "revokeOthers": "Cerrar todas las demás sesiones",
+      "revokedOthers": "Sesiones cerradas: {count}.",
+      "revoked": "Sesión cerrada.",
+      "empty": "No hay otras sesiones abiertas."
+    }
+  },
+  "errors": {
+    "INVALID_CREDENTIALS": "Correo o contraseña incorrectos, o el acceso está pausado temporalmente por seguridad.",
+    "EMAIL_NOT_VERIFIED": "Confirma tu correo antes de entrar.",
+    "WEAK_PASSWORD": "La contraseña no cumple los requisitos.",
+    "BREACHED_PASSWORD": "Esta contraseña aparece en filtraciones de datos conocidas. Elige otra.",
+    "INVALID_TOKEN": "El enlace o la sesión ya no son válidos.",
+    "INVALID_MFA_CODE": "El código no es válido.",
+    "RATE_LIMITED": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+    "NETWORK_ERROR": "Sin conexión con el servidor. Revisa tu internet.",
+    "TIMEOUT": "El servidor tardó demasiado en responder. Inténtalo de nuevo.",
+    "VALIDATION_ERROR": "Algún dato no es válido. Revísalo.",
+    "TERMS_OUTDATED": "Los términos cambiaron. Revisa la versión vigente.",
+    "CSRF_REJECTED": "La solicitud no se pudo verificar. Recarga la página.",
+    "UNAVAILABLE": "El servicio no está disponible en este momento. Las alertas públicas y los números de emergencia siguen funcionando.",
+    "MFA_ALREADY_ENABLED": "La verificación en dos pasos ya está activada.",
+    "MFA_SETUP_REQUIRED": "Empieza de nuevo la configuración.",
+    "MFA_NOT_ENABLED": "La verificación en dos pasos no está activada.",
+    "UNAUTHENTICATED": "Tu sesión terminó. Inicia sesión de nuevo.",
+    "API_NOT_CONFIGURED": "Las cuentas no están disponibles en esta instalación. Las alertas públicas y los números de emergencia siguen funcionando.",
+    "GENERIC": "Algo salió mal. Inténtalo de nuevo."
   }
 }
